@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { FaCheckCircle } from "react-icons/fa";
 
 
 function AdditionalForm (){
+  const navigate = useNavigate();  
   const queryParams = new URLSearchParams(window.location.search);
   const emailFromQuery = queryParams.get('email'); // 'email' 쿼리 파라미터의 값을 가져옵니다.
 
@@ -113,6 +115,7 @@ const validatePhone = (phone) => {
         // 성공적으로 처리된 경우
         console.log('회원가입 성공');
         // 필요한 작업 수행
+        navigate("/");
       } else {
         throw new Error('회원가입 실패');
       }

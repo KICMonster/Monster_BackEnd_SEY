@@ -11,6 +11,7 @@ import com.eyy.test.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,13 +33,14 @@ public class MemberService {
     private final SendEmailService mailService;
 
     private final InMemoryAuthCodeStore inMemoryAuthCodeStore;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${spring.mail.properties.auth-code-expiration-millis}")
     private long authCodeExpirationMillis;
 
     public void sendCodeToEmail(String toEmail) {
         this.checkDuplicatedEmail(toEmail);
-        String title = "Travel with me 이메일 인증 번호";
+        String title = "cocktail 이메일 인증 번호";
         String authCode = this.createCode();
         mailService.sendEmail(toEmail, title, authCode);
         // 이메일 인증 요청 시 인증 번호 메모리 내 저장소에 저장
@@ -85,7 +87,8 @@ public class MemberService {
     public void processJoinRequest(JoinRequestDTO requestDto) {
         Member member = new Member();
         member.setEmail(requestDto.getEmail());
-        member.setPassword(requestDto.getPassword()); // 일반 회원가입의 경우에만 사용
+        member.setPassword(passwordEncoder.encode(requestDto.getPassword())); // 비밀번호 암호화하여 저장
+        System.out.println("암호화된 비밀번호: " + member.getPassword());
         member.setName(requestDto.getName());
         member.setBirth(requestDto.getBirth());
         member.setPhone(requestDto.getPhone());
