@@ -98,6 +98,7 @@ local.properties
 .pem
 .bak
 .p12
-
+.gradle
+.yaml
 # vscode
 .env

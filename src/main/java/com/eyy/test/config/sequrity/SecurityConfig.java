@@ -44,8 +44,10 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true") // 로그인 실패 시 리디렉션할 URL 지정
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate").permitAll() // Preflight 요청 허용
-                        .requestMatchers("/api/authenticate").permitAll() // /api/authenticate 경로에 대해 모든 요청 허용
+                        .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate","/join/emails/verification-requests"
+                                ,"/join/emails/verifications","/join/submit").permitAll() // Preflight 요청 허용
+                        .requestMatchers("/api/authenticate", "/join/emails/verification-requests"
+                                ,"/join/emails/verifications","/join/submit").permitAll() // /api/authenticate 경로에 대해 모든 요청 허용
                         .anyRequest().authenticated() // 다른 요청은 인증 필요
                 );
 

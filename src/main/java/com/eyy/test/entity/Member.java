@@ -3,7 +3,6 @@ package com.eyy.test.entity;
 import com.eyy.test.Enumeration.LoginType;
 import com.eyy.test.Enumeration.Role;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +27,8 @@ public class Member {
     private String name;            // 카카오의 경우 비즈앱이 아니므로 DTO에서 닉네임으로 반환하여 name으로 저장
     @Column(nullable = true)
     private String birth;            // 생년월일
+    private String gender;
+    private String phone;           // 전화번호
 
     @Enumerated(EnumType.STRING)
     private Role role;                 // 소셜로그인 완료 계정,혹은 기본 회원가입 계정 (기본 회원가입계정은 추가 로직 필요.소셜로그인은 토큰생성후 필터 인증시 자동 부여)
