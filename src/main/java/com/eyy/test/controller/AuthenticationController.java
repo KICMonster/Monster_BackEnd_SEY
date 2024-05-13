@@ -46,6 +46,7 @@ public class AuthenticationController {
         String service = request.getService();
         System.out.println(service);
         System.out.println(accessToken);
+
         UserInfo userInfo = null;
         if ("kakao".equalsIgnoreCase(service)) {
             userInfo = socialLoginService.getUserInfoFromKakao(accessToken);

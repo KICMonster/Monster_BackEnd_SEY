@@ -53,6 +53,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate","/join/emails/verification-requests"
                                 ,"/join/emails/verifications","/join/submit").permitAll() // Preflight 요청 허용
+                        .requestMatchers(HttpMethod.DELETE, "/join/withdraw").permitAll() // DELETE 요청은 인증 필요
                         .requestMatchers("/api/authenticate", "/join/emails/verification-requests"
                                 ,"/join/emails/verifications","/join/submit").permitAll() // /api/authenticate 경로에 대해 모든 요청 허용
                         .anyRequest().authenticated() // 다른 요청은 인증 필요

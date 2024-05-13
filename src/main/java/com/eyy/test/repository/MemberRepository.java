@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
+
+    void deleteByEmail(String email); // 이메일을 기준으로 회원 삭제
 }

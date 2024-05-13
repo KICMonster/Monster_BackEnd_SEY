@@ -31,6 +31,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     private final SendEmailService mailService;
+    private final JwtService jwtService;
 
     private final InMemoryAuthCodeStore inMemoryAuthCodeStore;
     private final PasswordEncoder passwordEncoder;
@@ -102,4 +103,28 @@ public class MemberService {
 
         memberRepository.save(member);
     }
+
+    @Transactional
+    public void processWithdrawal(String jwtToken) {
+        // JWT 토큰 유효성 검증
+        if (!jwtService.validateToken(jwtToken)) {
+            throw new IllegalArgumentException("Invalid JWT token");
+        }
+
+        String email = jwtService.extractEmailFromToken(jwtToken);
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        if (optionalMember.isEmpty()) {
+            throw new IllegalArgumentException("Member not found for email: " + email);
+        }
+
+        Member member = optionalMember.get();
+        memberRepository.delete(member);
+    }
+
+    public Member findMemberByJwtToken(String jwtToken) {
+        String email = jwtService.extractEmailFromToken(jwtToken);
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found for email: " + email));
+    }
+
 }
