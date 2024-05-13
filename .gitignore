@@ -100,5 +100,7 @@ local.properties
 .p12
 .gradle
 .yaml
+.build.resources
+.out/production/resources
 # vscode
 .env

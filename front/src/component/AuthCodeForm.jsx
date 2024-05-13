@@ -21,7 +21,7 @@ const AuthCodeForm = ({ authCode, setAuthCode, onVerified }) => {
       if (remaining <= 0) {
         clearInterval(timer);
         alert("세션이 만료되었습니다. 다시 요청해 주세요.");
-        navigate("/join");
+        window.location.href = "/join";
         // 타이머 만료 시 처리할 로직 추가 (예: 만료 메시지 출력, 인증 코드 재요청 등)
       } else {
         setRemainingTime(remaining);
