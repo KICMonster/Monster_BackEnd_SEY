@@ -87,9 +87,6 @@ logging:
   level:
     org.springframework.security: TRACE
     org.springframework.security.oauth2: TRACE
-    org.springframework.mail: TRACE
-    org.springframework.mail.javamail: TRACE
-    jakarta.mail: TRACE
 
 jwt:
   secret-key: "J6Dfye3LvLpH2EM5B6W9XSn7HURx5Vhsw7pqG9T6moE="

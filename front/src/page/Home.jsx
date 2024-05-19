@@ -44,7 +44,9 @@ function Home() {
           <p>
             Please <a href="/login">login</a><a href="/join">join</a> us!
           </p>
-          <p><a href="/mypage">페이지이동 test</a></p>
+              {/* 기능테스트를 위해 만든 경로이므로 참고. 실제페이지 적용X */}
+            <p><a href="/trendNews">트렌드 뉴스</a></p> 
+          <p><a href="/taste">취향 분석 질문</a></p>
         </div>
       );
     }

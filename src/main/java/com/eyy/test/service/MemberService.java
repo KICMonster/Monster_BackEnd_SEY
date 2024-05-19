@@ -5,8 +5,10 @@ import com.eyy.test.Enumeration.ExceptionCode;
 import com.eyy.test.Enumeration.LoginType;
 import com.eyy.test.Enumeration.Role;
 import com.eyy.test.dto.JoinRequestDTO;
+import com.eyy.test.entity.Cocktails;
 import com.eyy.test.entity.Member;
 import com.eyy.test.exception.BusinessLogicException;
+import com.eyy.test.repository.CocktailsRepository;
 import com.eyy.test.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -35,6 +38,7 @@ public class MemberService {
 
     private final InMemoryAuthCodeStore inMemoryAuthCodeStore;
     private final PasswordEncoder passwordEncoder;
+    private final CocktailsRepository cocktailsRepository;
 
     @Value("${spring.mail.properties.auth-code-expiration-millis}")
     private long authCodeExpirationMillis;
@@ -125,6 +129,26 @@ public class MemberService {
         String email = jwtService.extractEmailFromToken(jwtToken);
         return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found for email: " + email));
+    }
+
+    @Transactional
+    public void updateMemberTaste(String jwtToken, String taste) {
+        String email = jwtService.extractEmailFromToken(jwtToken);
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found for email: " + email));
+
+        member.setTaste(taste); // 취향 정보 업데이트
+        memberRepository.save(member);
+    }
+
+    public List<Cocktails> findCocktailsByTaste(List<String> tasteIds) {
+
+
+        // recommend 값에 해당하는 칵테일 정보를 가져옵니다.
+        List<Cocktails> recommendedCocktails = cocktailsRepository.findByRecommendIn(tasteIds);
+
+        // 추천된 칵테일 리스트를 반환합니다.
+        return recommendedCocktails;
     }
 
 }

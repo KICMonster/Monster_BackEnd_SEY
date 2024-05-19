@@ -19,7 +19,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
-    private Long member_id;
+    private Long id;
     @Column(nullable = false, unique = true)
     private String email;           // 로그인시 id값 역할. 이메일 밸리데이션 체크 필수(방법은 알아서)
     @Column(nullable = true)
@@ -36,7 +36,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private LoginType loginType;        // 소셜로그인인지 기본회원가입인지 구분하기 위한 enum타입 필드 추가
 
-    // private Taste taste;    // 취향 기능 구현 후 추가 예정. 건너뛰기 기능 만들예정으로 null값 허용
+    private String taste;    // 취향 기능 구현 후 추가 예정. 건너뛰기 기능 만들예정으로 null값 허용
     
     // private Like like;      // 좋아요 기능 구현 후 추가 예정. 내 칵테일리스트(즐겨찾기) 페이지 사용 등
 

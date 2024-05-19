@@ -6,7 +6,9 @@ function App() {
 
 
   return (
+    <div className='font'> 
     <RouterProvider router={root}/>
+    </div>
   )
 }
 

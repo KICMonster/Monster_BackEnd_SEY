@@ -102,5 +102,6 @@ local.properties
 .yaml
 .build.resources
 .out/production/resources
+
 # vscode
 .env

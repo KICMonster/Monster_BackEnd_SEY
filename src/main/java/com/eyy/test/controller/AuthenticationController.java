@@ -3,22 +3,15 @@ package com.eyy.test.controller;
 import com.eyy.test.dto.JwtTokenDTO;
 import com.eyy.test.dto.SocialLoginRequest;
 import com.eyy.test.dto.UserInfo;
-import com.eyy.test.entity.JwtToken;
-import com.eyy.test.entity.Member;
-import com.eyy.test.filter.JwtAuthenticationFilter;
 import com.eyy.test.jwt.JWTProvider;
 import com.eyy.test.repository.MemberRepository;
 import com.eyy.test.repository.TokenRepository;
 import com.eyy.test.service.SocialLoginService;
 import com.eyy.test.service.SocialLoginSuccessHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "https://localhost:5174")

@@ -19,7 +19,6 @@ public class SocialLoginSuccessHandler {
 
     @Autowired
     private TokenRepository tokenRepository;
-
     public void handleSuccess(UserInfo userInfo, JwtTokenDTO jwtToken) {
         // 사용자 정보를 Member 엔티티로 변환 후 저장 또는 업데이트
         Optional<Member> existingMemberOptional = memberRepository.findByEmail(userInfo.getEmail());
@@ -59,3 +58,4 @@ public class SocialLoginSuccessHandler {
         System.out.println("사용자 정보와 JWT 토큰이 데이터베이스에 저장되었습니다.");
     }
 }
+

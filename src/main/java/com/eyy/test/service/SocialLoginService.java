@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import com.eyy.test.config.rest.RestTemplateConfig;
 
 import java.util.Arrays;
 import java.util.Collections;

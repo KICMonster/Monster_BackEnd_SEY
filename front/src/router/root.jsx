@@ -2,10 +2,11 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '../page/Home';
 import LoginPage from '../page/LoginPage';
 import LoginRouter from './LoginRouter';
-import Mypage from '../page/Mypage';
-import JoinRouter from './JoinRouter';
 import Join from '../page/Join';
 import AdditionalForm from '../component/AdditionalForm';
+import TasteAnalysis from '../component/tasteAnalysis';
+import AnalysisComplete from '../page/AnalysisComplete';
+import TrendNews from '../page/TrendNews';
 
 const root = createBrowserRouter([
   {
@@ -19,16 +20,25 @@ const root = createBrowserRouter([
   },
   {
     path: '/join',
-    element: <Join />,
-    children: JoinRouter()
+    element: <Join />
   },
   {
     path : '/additional',
     element : <AdditionalForm/>
   },
   {
-    path: 'mypage',
-    element: <Mypage/>
+    path : '/taste', // 기호조사. 필요 페이지와 연결할것.지금은 home.jsx에 버튼. 회원가입 페이지와 연결할 경우 로직 수정할 필요.   
+    element : <TasteAnalysis/>, // 회원가입 로직과 연결 할 시 프론트 경로작업&비동기 통신전달값 추가 후 백엔드에 문의
+    children: [
+      {
+        path: 'complete', // '/taste'의 하위 경로로 'complete'를 정의
+        element: <AnalysisComplete/> // '/taste/complete'에 해당하는 컴포넌트
+      }
+    ]
+  },
+  {
+    path: '/trendNews',       // 뉴스 경로. 조정 필요. 
+    element: <TrendNews/>
   }
 ]);
 
