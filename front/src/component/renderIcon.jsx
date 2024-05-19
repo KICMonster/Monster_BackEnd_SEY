@@ -13,3 +13,4 @@ const IconRenderer = ({ iconName }) => {
 };
 
 export default IconRenderer;
+// 객체에 아이콘 값 넣어서 렌더링
