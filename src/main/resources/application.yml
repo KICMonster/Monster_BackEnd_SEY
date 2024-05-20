@@ -73,6 +73,7 @@ spring:
   config:
     import:
       - classpath:/yaml/application-{verification}.yml
+      - classpath:/yaml/application-{weather}.yml
 
 server:
   port: 9092
