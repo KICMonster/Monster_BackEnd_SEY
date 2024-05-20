@@ -47,6 +47,8 @@ function Home() {
               {/* 기능테스트를 위해 만든 경로이므로 참고. 실제페이지 적용X */}
             <p><a href="/trendNews">트렌드 뉴스</a></p> 
           <p><a href="/taste">취향 분석 질문</a></p>
+          <p><a href="/weather">날씨</a></p>
+          
         </div>
       );
     }

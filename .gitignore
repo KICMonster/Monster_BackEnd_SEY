@@ -94,8 +94,8 @@ local.properties
 *.iml
 .out
 .gen
-.yml
-.pem
+*.yml
+*.pem
 .bak
 .p12
 .gradle
@@ -104,4 +104,4 @@ local.properties
 .out/production/resources
 
 # vscode
-.env
+*.env

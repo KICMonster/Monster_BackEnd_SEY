@@ -7,6 +7,7 @@ import AdditionalForm from '../component/AdditionalForm';
 import TasteAnalysis from '../component/tasteAnalysis';
 import AnalysisComplete from '../page/AnalysisComplete';
 import TrendNews from '../page/TrendNews';
+import Weather from '../component/wheather';
 
 const root = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const root = createBrowserRouter([
   {
     path: '/trendNews',       // 뉴스 경로. 조정 필요. 
     element: <TrendNews/>
+  },
+  {
+    path: '/weather',       
+    element: <Weather/>
   }
 ]);
 
