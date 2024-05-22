@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CocktailsRepository extends JpaRepository<Cocktails, Long> {
     List<Cocktails> findByRecommendIn(List<String> tasteIds);
+    List<Cocktails> findByrcWeather(String weatherCode);
 }

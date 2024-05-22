@@ -19,4 +19,5 @@ public class Cocktails {
     private String ingredient3;
     private String alcohol_content;
     private String recommend;
+    private String rcWeather;
 }
