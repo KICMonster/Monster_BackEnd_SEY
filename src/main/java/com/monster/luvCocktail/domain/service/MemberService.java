@@ -1,7 +1,7 @@
 package com.monster.luvCocktail.domain.service;
 
 import com.monster.luvCocktail.domain.Enumeration.ExceptionCode;
-import com.monster.luvCocktail.domain.repository.CocktailsRepository;
+import com.monster.luvCocktail.domain.repository.CocktailRepository;
 import com.monster.luvCocktail.domain.Enumeration.EmailVerificationResult;
 import com.monster.luvCocktail.domain.Enumeration.LoginType;
 import com.monster.luvCocktail.domain.Enumeration.Role;
@@ -38,7 +38,7 @@ public class MemberService {
 
     private final InMemoryAuthCodeStore inMemoryAuthCodeStore;
     private final PasswordEncoder passwordEncoder;
-    private final CocktailsRepository cocktailsRepository;
+    private final CocktailRepository cocktailsRepository;
 
     @Value("${spring.mail.properties.auth-code-expiration-millis}")
     private long authCodeExpirationMillis;

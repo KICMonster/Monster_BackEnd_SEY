@@ -18,7 +18,7 @@ import java.util.List;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "member_seq")
     private Long id;
     @Column(nullable = false, unique = true)
     private String email;           // 로그인시 id값 역할. 이메일 밸리데이션 체크 필수(방법은 알아서)

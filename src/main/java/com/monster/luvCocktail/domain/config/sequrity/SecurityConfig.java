@@ -49,12 +49,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate", "/join/emails/verification-requests",
-                                "/join/emails/verifications", "/join/submit").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/join/withdraw").permitAll()
-                        .requestMatchers("/api/authenticate", "/join/emails/verification-requests",
-                                "/join/emails/verifications", "/join/submit").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/search/submitTaste", "/search/updateTasteAndRecommend").hasAuthority("USER")
+//                        .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate", "/join/emails/verification-requests",
+//                                "/join/emails/verifications", "/join/submit").permitAll()
+//                        .requestMatchers(HttpMethod.DELETE, "/join/withdraw").permitAll()
+//                        .requestMatchers("/api/authenticate", "/join/emails/verification-requests",
+//                                "/join/emails/verifications", "/join/submit").permitAll()
+//                        .requestMatchers(HttpMethod.OPTIONS, "/search/submitTaste", "/search/updateTasteAndRecommend").hasAuthority("USER")
+                		.requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2Login -> oauth2Login

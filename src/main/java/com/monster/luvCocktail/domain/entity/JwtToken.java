@@ -2,16 +2,18 @@ package com.monster.luvCocktail.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
 @Entity
+@NoArgsConstructor
 @SequenceGenerator(name = "token_seq", sequenceName = "token_seq", allocationSize = 1)
 public class JwtToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "token_seq")
     private Long tokenId; // 소문자로 변경: Java 카멜 케이스 규칙을 따름
 
     private String grantType;
