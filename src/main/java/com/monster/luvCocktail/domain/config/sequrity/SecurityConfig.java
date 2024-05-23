@@ -51,7 +51,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate", "/join/emails/verification-requests",
                                 "/join/emails/verifications", "/join/submit","/weather/api/today").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/weather/api/today").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/view/api/cocktails/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/weather/api/today","search/api/cocktails").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/join/withdraw").permitAll()
                         .requestMatchers("/api/authenticate", "/join/emails/verification-requests",
                                 "/join/emails/verifications", "/join/submit").permitAll()

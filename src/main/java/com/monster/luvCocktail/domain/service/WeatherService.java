@@ -3,18 +3,12 @@ package com.monster.luvCocktail.domain.service;
 import com.monster.luvCocktail.domain.dto.WeatherDTO;
 import com.monster.luvCocktail.domain.entity.Weather;
 import com.monster.luvCocktail.domain.repository.WeatherRepository;
-import org.hibernate.sql.ast.tree.from.CorrelatedTableGroup;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,38 +18,18 @@ import java.util.*;
 public class WeatherService {
 
     private final WeatherRepository weatherRepository;
+    private final WebClient webClient;
+
     @Value("${weather.api.key}")
     private String apiKey;
 
-    public WeatherService(WeatherRepository weatherRepository) {
+    @Autowired
+    public WeatherService(WeatherRepository weatherRepository, WebClient webClient) {
         this.weatherRepository = weatherRepository;
+        this.webClient = webClient;
     }
 
-    // RestTemplate 인스턴스를 생성하면서 JSON과 XML 메시지 컨버터를 추가합니다.
-    private RestTemplate createRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
-        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-
-        // XML 메시지 컨버터 추가
-//        messageConverters.add(new Jaxb2RootElementHttpMessageConverter());
-        messageConverters.add(new MappingJackson2HttpMessageConverter());
-
-        restTemplate.setMessageConverters(messageConverters);
-
-        return restTemplate;
-    }
-
-    public WeatherDTO getWeather(double lat, double lon) {
-        RestTemplate restTemplate = createRestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
-        headers.setAccept(Collections.singletonList(org.springframework.http.MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        String baseUrl = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst";
-
+    public Mono<WeatherDTO> getWeather(double lat, double lon) {
         Map<String, Integer> grid = latLonToGrid(lat, lon);
         int nx = grid.get("nx");
         int ny = grid.get("ny");
@@ -63,28 +37,26 @@ public class WeatherService {
         String baseDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String baseTime = "0630";
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .queryParam("serviceKey", apiKey)
-                .queryParam("numOfRows", 1000)
-                .queryParam("pageNo", 1)
-                .queryParam("dataType", "JSON")
-                .queryParam("base_date", baseDate)
-                .queryParam("base_time", baseTime)
-                .queryParam("nx", nx)
-                .queryParam("ny", ny)
-                .queryParam("category", "SKY","T1H"); // 원하는 카테고리 추가
-
-
-        System.out.println(uriBuilder.toUriString());
-
-
-        Map response = restTemplate.getForObject(uriBuilder.toUriString(), Map.class);
-        System.out.println(response);
-        return parseWeatherResponse(response);
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst")
+                        .queryParam("serviceKey", apiKey)
+                        .queryParam("numOfRows", 1000)
+                        .queryParam("pageNo", 1)
+                        .queryParam("dataType", "JSON")
+                        .queryParam("base_date", baseDate)
+                        .queryParam("base_time", baseTime)
+                        .queryParam("nx", nx)
+                        .queryParam("ny", ny)
+                        .queryParam("category", "SKY,T1H")
+                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(Map.class)
+                .map(this::parseWeatherResponse);
     }
 
     private WeatherDTO parseWeatherResponse(Map<String, Object> response) {
-        System.out.println("=============================");
         Map<String, Object> responseBody = (Map<String, Object>) ((Map<String, Object>) response.get("response")).get("body");
         Map<String, Object> items = (Map<String, Object>) responseBody.get("items");
         List<Map<String, String>> itemList = (List<Map<String, String>>) items.get("item");
@@ -92,6 +64,7 @@ public class WeatherService {
         String weather = "Unknown";
         String temperature = "Unknown";
         StringBuilder statusBuilder = new StringBuilder();
+        StringBuilder categoryBuilder = new StringBuilder(); // 카테고리를 저장할 StringBuilder 추가
 
         for (Map<String, String> item : itemList) {
             String category = item.get("category");
@@ -99,6 +72,7 @@ public class WeatherService {
 
             if ("SKY".equals(category)) {
                 statusBuilder.append("SKY: ").append(fcstValue).append("; ");
+                categoryBuilder.append("SKY").append("; "); // 카테고리 추가
                 weather = switch (fcstValue) {
                     case "1" -> "맑은 상태로";
                     case "2" -> "비가 오는 상태로";
@@ -110,23 +84,24 @@ public class WeatherService {
 
             if ("T3H".equals(category) || "T1H".equals(category)) {
                 statusBuilder.append(category).append(": ").append(fcstValue).append("; ");
+                categoryBuilder.append(category).append("; "); // 카테고리 추가
                 temperature = fcstValue + "℃";
             }
-
         }
 
         WeatherDTO weatherDTO = new WeatherDTO();
         weatherDTO.setWeather(weather);
         weatherDTO.setTemperature(temperature);
-        weatherDTO.setState(statusBuilder.toString());
+        weatherDTO.setCategory(categoryBuilder.toString()); // 카테고리 설정
 
         return weatherDTO;
     }
 
     public String getWeatherCode(WeatherDTO weatherDTO) {
-        Optional<Weather> weatherOpt = weatherRepository.findByWeatherNmAndWeatherSt(weatherDTO.getWeather(), weatherDTO.getState());
-        return weatherOpt.map(Weather::getWeatherCd).orElse(null);
+        Optional<Weather> weatherOpt = weatherRepository.findByWeatherSt(weatherDTO.getWeather());
+        return weatherOpt.map(weather -> String.valueOf(weather.getWeatherCd())).orElse(null); // Long 타입에서 String 타입으로 변환
     }
+
     private Map<String, Integer> latLonToGrid(double lat, double lon) {
         final double RE = 6371.00877;
         final double GRID = 5.0;

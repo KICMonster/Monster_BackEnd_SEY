@@ -1,10 +1,10 @@
 package com.monster.luvCocktail.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,4 +20,8 @@ public class Cocktails {
     private String alcohol_content;
     private String recommend;
     private String rcWeather;
+
+
+    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL)
+    private List<View> views = new ArrayList<>();
 }

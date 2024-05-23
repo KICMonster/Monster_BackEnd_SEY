@@ -23,10 +23,10 @@ public class WeatherController {
     private SearchService searchService;
 
 
-    @GetMapping( value = "/api/today" )
+    @GetMapping("/api/today")
     public ResponseEntity<Map<String, Object>> getRecommendCocktailsByWeather(@RequestParam double lat, @RequestParam double lon) {
         System.out.println("lat: " + lat + ", lon: " + lon);
-        WeatherDTO weatherInfo = weatherService.getWeather(lat, lon);
+        WeatherDTO weatherInfo = weatherService.getWeather(lat, lon).block();
         String weatherCode = weatherService.getWeatherCode(weatherInfo);
 
         List<Cocktails> recommendedCocktails = searchService.findCocktailsByWeatherCode(weatherCode);
