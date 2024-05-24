@@ -1,0 +1,169 @@
+/* @keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body {
+  background: linear-gradient(270deg, #cafdbf, #feb2be);
+  background-size: 800% 800%;
+  animation: gradientBackground 15s ease infinite;
+} */
+
+.info {
+  height: 773px;
+}
+/* App.css */
+.logo {
+  margin-right: 30px;
+  width: 100px;
+  /* 로고의 너비 설정 */
+  height: 65px;
+  /* 로고의 높이 설정 */
+  background-image: url('./img/logo.png');
+  /* 이미지 경로 설정 */
+  background-size: contain;
+  /* 이미지가 컨테이너 안에 맞게 조정 */
+  background-repeat: no-repeat;
+  /* 이미지가 반복되지 않도록 설정 */
+  border-radius: 20px;
+}
+
+.navbar {
+  background-color: transparent;
+  /* 투명 배경 */
+  color: white;
+  /* 글자 색상 */
+}
+
+
+.login-button {
+  margin: 20px;
+  padding: 10px 20px;
+  background: rgba(13, 110, 253, 0.25);
+  color: white;
+  font-size: 16px;
+  border: 1px solid #0000003d;
+  border-radius: 5px;
+  cursor: pointer;
+  line-height: 10px
+
+}
+
+.nav-link {
+  margin-right: 20px;
+  /* 오른쪽 마진을 추가하여 간격을 만듬 */
+  color: white !important;
+}
+
+/* 마지막 링크의 마진을 제거하려면 */
+.nav-link:last-child {
+  margin-right: 0;
+  /* 마지막 항목의 마진을 0으로 설정 */
+}
+
+.navbar.shrink .nav-link {
+  font-size: 12px;
+  /* 축소시 폰트 크기 감소 */
+}
+
+.navbar.expand .nav-link {
+  font-size: 16px;
+  /* 확장시 폰트 크기 */
+}
+
+.login-button-color:hover {
+  background-color: #4e454e !important;
+  /* 마우스 오버 시 더 어두운 차콜색 */
+}
+
+.cocktail-button {
+  color: white !important;
+}
+
+.ingredient-button {
+  color: white !important;
+}
+
+.recipe-button {
+  color: white !important;
+}
+
+.news-button {
+  color: white !important;
+}
+
+
+
+.header nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.header nav ul li {
+  margin: 0 10px;
+}
+
+.header-content {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.header {
+  margin-bottom: 70px;
+}
+
+.headerExpand {
+  position: fixed;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #A374DB;
+  /* 그라데이션 색상 설정 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 6;
+  transition: all 0.3s ease;
+  padding: 0 30px;
+  height: 70px;
+
+}
+
+.header.shrink {
+  padding: 10px;
+  background: linear-gradient(to left, #ff7e5f, #feb47b, #fbf0ea);
+  /* 스크롤 시 그라데이션 색상 변경 */
+}
+
+.cocktail {
+  margin-right: 30px;
+  width: 100px;
+  height: 65px;
+  background-image: url('./img/Cocktail_02.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 1.5fr 1.5fr;
+  /* 5개의 열을 정의하고 마지막 두 열을 1.5배로 설정 */
+}
+
+.right-section {
+  display: flex;
+  float: right;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  /* 로그인 버튼 옆에 간격 추가 */
+}

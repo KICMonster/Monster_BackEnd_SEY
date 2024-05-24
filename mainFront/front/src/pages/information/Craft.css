@@ -1,0 +1,35 @@
+.crafts {
+    margin: 0 auto;
+    width: 1200px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.crafts img {
+    margin: 0 auto;
+    width: 1200px;
+    height: 500px;   
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.crafts h1 {
+    margin: 0 auto;
+    font-size: 4em;
+    margin-bottom: 20px;
+
+}
+
+.crafts h4 {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.crafts p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}

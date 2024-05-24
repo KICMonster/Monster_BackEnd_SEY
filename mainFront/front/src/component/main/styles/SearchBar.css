@@ -1,0 +1,45 @@
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.search-icon {
+    cursor: pointer;
+
+}
+
+.search-form-container {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    background-color: transparent;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255); /* 반투명 흰색 배경 */
+}
+
+.search-input::placeholder {
+    color: #bbb; /* 플레이스홀더 텍스트 색상 */
+}
+
+.search-button {
+    padding: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+}
