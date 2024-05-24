@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { SiNaver } from "react-icons/si";
 import { HiMiniChatBubbleOvalLeft } from "react-icons/hi2";
 import '../component/main/styles/login.css'
+import EmailForm from '../component/login/EmailVerification';
 
 const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
 
@@ -172,24 +173,32 @@ function LoginPage() {
           }}
         >
           {/* 회원가입 */}
-          <Link to={"/join"}><button className='no__btn' >회원가입</button></Link>
+          <button className='no__btn' >회원가입</button>
         </nav>
-      </div>
+      </div >
     );
   }
   //로그인 페이지 메인 
   function LoginMain({ isChange }) {
-    return (
-      <main>
-        <form style={{ width: '100%' }}>
-          <div className="LoginMainBody">
-            <input type="text" id="username" name="username" autoComplete="username" placeholder={"Email"} className='email' />
-            <input type="password" id="password" name="password" autoComplete="current-password" placeholder={"PASSWORD"} className='pass' />
-          </div>
-          <button type='submit' className='origin__btn' style={{ marginTop: '20px' }}>로그인</button>
-        </form>
-      </main >
-    );
+    if (!isChange) {
+      return (
+        <main>
+          <form style={{ width: '100%' }}>
+            <div className="LoginMainBody">
+              <input type="text" id="username" name="username" autoComplete="username" placeholder={"Email"} className='email' />
+              <input type="password" id="password" name="password" autoComplete="current-password" placeholder={"PASSWORD"} className='pass' />
+            </div>
+            <button type='submit' className='origin__btn' style={{ marginTop: '20px' }}>로그인</button>
+          </form>
+        </main >
+      );
+    } else {
+      return (
+        <>
+          <EmailForm />
+        </>
+      );
+    }
   }
 
 

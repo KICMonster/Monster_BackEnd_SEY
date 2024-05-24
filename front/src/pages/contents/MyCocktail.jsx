@@ -41,73 +41,75 @@ function MyCocktail() {
 
   return (
     <BasicLayout>
-      <div style={styles.container}>
-        <div style={styles.left}>
-          <div style={styles.ingredientSection}>
-            <h2>추가하실 재료</h2>
-            <button type="button" onClick={addIngredient} style={styles.addButton}>
-              재료 추가하기
-            </button>
-            <div style={styles.ingredientsContainer}>
-              {ingredients.map(ingredient => (
-                <div key={ingredient.id} style={styles.formGroup}>
-                  <div style={styles.ingredientRow}>
-                    <input
-                      type="text"
-                      placeholder={`재료 ${ingredient.id} 이름`}
-                      value={ingredient.name}
-                      onChange={(e) =>
-                        handleInputChange(ingredient.id, "name", e.target.value)
-                      }
-                      style={styles.ingredientInput}
-                    />
-                    <input
-                      type="text"
-                      placeholder="재료의 양"
-                      value={ingredient.amount}
-                      onChange={(e) =>
-                        handleInputChange(ingredient.id, "amount", e.target.value)
-                      }
-                      style={styles.amountInput}
-                    />
+      <div style={styles.board}>
+        <div style={styles.container}>  
+          <div style={styles.left}>
+            <div style={styles.ingredientSection}>
+              <h2>추가하실 재료</h2>
+              <button type="button" onClick={addIngredient} style={styles.addButton}>
+                재료 추가하기
+              </button>
+              <div style={styles.ingredientsContainer}>
+                {ingredients.map(ingredient => (
+                  <div key={ingredient.id} style={styles.formGroup}>
+                    <div style={styles.ingredientRow}>
+                      <input
+                        type="text"
+                        placeholder={`재료 ${ingredient.id} 이름`}
+                        value={ingredient.name}
+                        onChange={(e) =>
+                          handleInputChange(ingredient.id, "name", e.target.value)
+                        }
+                        style={styles.ingredientInput}
+                      />
+                      <input
+                        type="text"
+                        placeholder="재료의 양"
+                        value={ingredient.amount}
+                        onChange={(e) =>
+                          handleInputChange(ingredient.id, "amount", e.target.value)
+                        }
+                        style={styles.amountInput}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <div style={styles.right}>
-          <form onSubmit={handleSubmit} style={styles.form}>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>제목을 입력해주세요</label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                style={styles.input}
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>내용</label>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                style={styles.textarea}
-              />
-            </div>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>이미지 첨부</label>
-              <input type="file" style={styles.fileInput} />
-            </div>
-            <div style={styles.buttonGroup}>
-              <button type="submit" style={styles.submitButton}>
-                등록
-              </button>
-              <button type="button" style={styles.cancelButton}>
-                취소
-              </button>
-            </div>
-          </form>
+          <div style={styles.right}>
+            <form onSubmit={handleSubmit} style={styles.form}>
+              <div style={styles.formGroup}>
+                <label style={styles.label}>제목을 입력해주세요</label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  style={styles.input}
+                />
+              </div>
+              <div style={styles.formGroup}>
+                <label style={styles.label}>내용</label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  style={styles.textarea}
+                />
+              </div>
+              <div style={styles.formGroup}>
+                <label style={styles.label}>이미지 첨부</label>
+                <input type="file" style={styles.fileInput} />
+              </div>
+              <div style={styles.buttonGroup}>
+                <button type="submit" style={styles.submitButton}>
+                  등록
+                </button>
+                <button type="button" style={styles.cancelButton}>
+                  취소
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </BasicLayout>
@@ -115,19 +117,26 @@ function MyCocktail() {
 }
 
 const styles = {
-  container: {
+  board: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // 흰색 반투명 배경
+    padding: "20px",
+    borderRadius: "20px",
     maxWidth: "1200px",
     margin: "0 auto",
-    padding: "20px",
+    marginTop: "125px", // 보드를 아래로 내리는 위치 조정
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // 보드에 그림자 추가
+  },
+  container: {
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
   },
   left: {
     marginRight: "20px",
+    flex: "1",
   },
   right: {
-    flex: "1",
+    flex: "2",
   },
   ingredientSection: {
     padding: "20px",
@@ -226,6 +235,5 @@ const styles = {
     marginTop: "10px",
   },
 };
-
 
 export default MyCocktail;

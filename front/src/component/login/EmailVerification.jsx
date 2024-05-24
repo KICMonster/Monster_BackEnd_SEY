@@ -151,7 +151,7 @@ const isValidEmailFormat = (email) => {
           onVerified={onVerified}
         />
       ) : (
-        <button onClick={handleVerifyEmail}>인증 코드 받기</button>
+        <button onClick={handleVerifyEmail} className='no__btn'>인증 코드 받기</button>
       )}
     </div>
     

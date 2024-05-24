@@ -1,6 +1,4 @@
-/* src/pages/ViewPage.css */
-
-/* 중앙 필터링 드롭다운 CSS */
+/* 기존 스타일 유지 */
 .filter-dropdowns {
     display: flex;
     justify-content: center; /* 중앙 정렬 */
@@ -37,6 +35,7 @@
   .cocktail-item {
     text-align: center;
     margin: auto; /* 박스를 가운데 정렬 */
+    position: relative; /* 아이콘 위치를 위한 상대 위치 설정 */
   }
   
   .image-box {
@@ -49,6 +48,7 @@
     justify-content: center;
     align-items: center;
     background-color: #f0f0f0; /* 이미지가 없는 경우 배경색 */
+    position: relative; /* 아이콘 위치를 위한 상대 위치 설정 */
   }
   
   .cocktail-image {
@@ -62,3 +62,24 @@
     font-size: 16px;
     font-weight: bold;
   }
+  
+  .recommendation-icon {
+    position: absolute; /* 절대 위치 설정 */
+    top: 8px; /* 위쪽 여백 설정 */
+    left: 8px; /* 왼쪽 여백 설정 */
+    font-size: 24px;
+  }
+  
+  /* 아이콘 색상 정의 */
+  .triangle-icon {
+    color: rgb(93, 226, 72); /* 세모 색상 */
+  }
+  
+  .heart-icon {
+    color: red; /* 하트 색상 */
+  }
+  
+  .star-icon {
+    color: gold; /* 별 색상 */
+  }
+  
