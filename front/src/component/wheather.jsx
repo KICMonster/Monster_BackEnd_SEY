@@ -1,116 +1,100 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import IconRenderer from './renderIcon'; // 아이콘 렌더링 컴포넌트 import
 
-function Weather() {
+const WeatherButton = () => {
   const [weather, setWeather] = useState(null);
-  const [location, setLocation] = useState({ lat: null, lon: null });
-  const [loading, setLoading] = useState(true);
+  const [cocktails, setCocktails] = useState([]);
+  const [randomCocktail, setRandomCocktail] = useState(null);
+  const [loadingWeather, setLoadingWeather] = useState(false);
+  const [loadingRandomCocktail, setLoadingRandomCocktail] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // 현재 위치를 얻기 위한 Geolocation API 사용
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setLocation({ lat: latitude, lon: longitude });
-        fetchWeather(latitude, longitude);
-      });
-    } else {
-      alert('Geolocation is not supported by this browser.');
-    }
+    // 페이지가 처음 로드될 때 현재 위치의 날씨 정보를 가져옴
+    handleGetCurrentLocation();
   }, []);
 
   const fetchWeather = async (lat, lon) => {
+    setLoadingWeather(true);
     try {
-      const serviceKey = 'vaPRH1XIvl6Z8A4rW3qIonrlxY5ExU3gSZgxL98cggj9/f6jTdNftyXbzBffsj1hBe9rn8ECJhfw7dAkoj9d0w=='; // 기상청 API 키
-      const base_date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-      const base_time = '0630'; // 기상청 API 문서에 따라 수정 필요
-      const { nx, ny } = latLonToGrid(lat, lon); // 좌표 변환
-
-      const response = await axios.get(`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst`, {
-        params: {
-          serviceKey,
-          numOfRows: 10,
-          pageNo: 1,
-          dataType: 'JSON',
-          base_date,
-          base_time,
-          nx,
-          ny,
-        },
+      const response = await axios.get('https://localhost:9092/weather/api/today', {
+        params: { lat, lon },
       });
-
-      console.log(response.data); // 응답 데이터 로그 출력
-
-      if (response.data && response.data.response && response.data.response.body) {
-        setWeather(response.data.response.body.items.item);
-      } else {
-        console.error('Unexpected response format:', response.data);
-      }
-      setLoading(false);
+      setWeather(response.data.weatherInfo);
+      setCocktails(response.data.recommendedCocktails);
+      // 페이지 로드 시 랜덤 칵테일 선택
+      selectRandomCocktail();
     } catch (error) {
-      console.error('Error fetching the weather data:', error.message);
-      setLoading(false);
+      console.error('Error fetching weather data:', error);
+      setError('Error fetching weather data.');
+    }
+    setLoadingWeather(false);
+  };
+
+  const handleGetCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error getting current location:', error);
+          setError('Error getting current location.');
+        }
+      );
+    } else {
+      setError('Geolocation is not supported by this browser.');
     }
   };
 
-  const latLonToGrid = (lat, lon) => {
-    // 기상청 격자 좌표 변환 공식 (단순화된 예시)
-    const RE = 6371.00877; // 지구 반경 (km)
-    const GRID = 5.0; // 격자 간격 (km)
-    const SLAT1 = 30.0; // 표준 위도 1 (degree)
-    const SLAT2 = 60.0; // 표준 위도 2 (degree)
-    const OLON = 126.0; // 기준점 경도 (degree)
-    const OLAT = 38.0; // 기준점 위도 (degree)
-    const XO = 43; // 기준점 X좌표 (격자 기준)
-    const YO = 136; // 기준점 Y좌표 (격자 기준)
-
-    const DEGRAD = Math.PI / 180.0;
-    const re = RE / GRID;
-    const slat1 = SLAT1 * DEGRAD;
-    const slat2 = SLAT2 * DEGRAD;
-    const olon = OLON * DEGRAD;
-    const olat = OLAT * DEGRAD;
-
-    let sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
-    sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
-    let sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
-    sf = (sf ** sn * Math.cos(slat1)) / sn;
-    let ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
-    ro = (re * sf) / (ro ** sn);
-
-    const rs = {};
-    let ra = Math.tan(Math.PI * 0.25 + lat * DEGRAD * 0.5);
-    ra = (re * sf) / (ra ** sn);
-    let theta = lon * DEGRAD - olon;
-    if (theta > Math.PI) theta -= 2.0 * Math.PI;
-    if (theta < -Math.PI) theta += 2.0 * Math.PI;
-    theta *= sn;
-    rs['nx'] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
-    rs['ny'] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
-
-    return rs;
+  const handleGetRandomCocktail = async () => {
+    if (!loadingRandomCocktail && cocktails.length > 0) {
+      setLoadingRandomCocktail(true);
+      // 랜덤 칵테일 선택
+      const randomIndex = Math.floor(Math.random() * cocktails.length);
+      setRandomCocktail(cocktails[randomIndex]);
+      setLoadingRandomCocktail(false);
+    }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const selectRandomCocktail = () => {
+    if (cocktails.length > 0) {
+      const randomIndex = Math.floor(Math.random() * cocktails.length);
+      setRandomCocktail(cocktails[randomIndex]);
+    }
+  };
 
   return (
-    <div className="App">
-      {weather ? (
+    <div>
+      <button onClick={handleGetCurrentLocation} disabled={loadingWeather}>
+        {loadingWeather ? 'Loading...' : 'Get Weather for Current Location'}
+      </button>
+      {error && <p>{error}</p>}
+      {weather && (
         <div>
-          <h1>Current Weather</h1>
-          {weather.map((item, index) => (
-            <div key={index}>
-              <p>{item.category}: {item.fcstValue}</p>
-            </div>
-          ))}
+          <h3>Weather Data:</h3>
+          <p>{`Weather: ${weather.weather}`}</p>
+          <p>{`Temperature: ${weather.temperature}`}</p>
+          {/* 아이콘 렌더링 */}
+          {weather.weather === "흐림" && (
+            <IconRenderer iconName="TiWeatherPartlySunny" />
+          )}
         </div>
-      ) : (
-        <p>No weather data available</p>
       )}
+      {randomCocktail && (
+        <div>
+          <h3>Random Cocktail:</h3>
+          <p>{`Cocktail name: ${randomCocktail.name}`}</p>
+          <p>{`Ingredient: ${randomCocktail.ingredient1}`}</p>
+        </div>
+      )}
+      <button onClick={handleGetRandomCocktail} disabled={loadingRandomCocktail || !cocktails.length}>
+        {loadingRandomCocktail ? 'Loading...' : 'Get Random Cocktail'}
+      </button>
     </div>
   );
-}
+};
 
-export default Weather;
+export default WeatherButton;

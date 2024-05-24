@@ -1,11 +1,13 @@
 package com.monster.luvCocktail.domain.controller;
 
+import com.monster.luvCocktail.domain.dto.CocktailDTO;
 import com.monster.luvCocktail.domain.dto.TasteStringDTO;
 import com.monster.luvCocktail.domain.entity.Cocktails;
 import com.monster.luvCocktail.domain.entity.Member;
 import com.monster.luvCocktail.domain.repository.MemberRepository;
 import com.monster.luvCocktail.domain.service.JwtService;
 import com.monster.luvCocktail.domain.service.MemberService;
+import com.monster.luvCocktail.domain.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +31,8 @@ public class SearchController {
     private JwtService jwtService;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private SearchService searchService;
 
 
     @PreAuthorize("hasAuthority('USER')")
@@ -71,6 +75,12 @@ public class SearchController {
         // 응답 데이터 설정
         return ResponseEntity.ok(recommendedCocktails);
 
+    }
+
+    @GetMapping("/api/cocktails")
+    public ResponseEntity<List<CocktailDTO>> getAllCocktails() {
+        List<CocktailDTO> cocktails = searchService.getAllCocktails();
+        return ResponseEntity.ok(cocktails);
     }
 
 
