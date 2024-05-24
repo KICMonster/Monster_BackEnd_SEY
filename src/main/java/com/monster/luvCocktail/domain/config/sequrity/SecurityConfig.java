@@ -49,13 +49,14 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate", "/join/emails/verification-requests",
-//                                "/join/emails/verifications", "/join/submit").permitAll()
-//                        .requestMatchers(HttpMethod.DELETE, "/join/withdraw").permitAll()
-//                        .requestMatchers("/api/authenticate", "/join/emails/verification-requests",
-//                                "/join/emails/verifications", "/join/submit").permitAll()
-//                        .requestMatchers(HttpMethod.OPTIONS, "/search/submitTaste", "/search/updateTasteAndRecommend").hasAuthority("USER")
-                		.requestMatchers("/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/api/authenticate", "/join/emails/verification-requests",
+                                "/join/emails/verifications", "/join/submit","/weather/api/today").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/view/api/cocktails/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/weather/api/today","search/api/cocktails").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/join/withdraw").permitAll()
+                        .requestMatchers("/api/authenticate", "/join/emails/verification-requests",
+                                "/join/emails/verifications", "/join/submit").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/search/submitTaste", "/search/updateTasteAndRecommend").hasAuthority("USER")
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2Login -> oauth2Login

@@ -1,12 +1,11 @@
 package com.monster.luvCocktail.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -62,4 +61,9 @@ public class Cocktails {
     
     @Column(name = "CK_RECOMMEND")
     private String recommend;
+    private String rcWeather;
+
+
+    @OneToMany(mappedBy = "cocktail", cascade = CascadeType.ALL)
+    private List<View> views = new ArrayList<>();
 }
