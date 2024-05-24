@@ -31,4 +31,10 @@ public class IngredientController {
 		log.info("get Ingredient List 메서드 실행");
 		return ResponseEntity.ok(ingredientService.getList());
 	}
+	
+	@GetMapping("/{ingredientId}")
+	public ResponseEntity<IngredientResponse> getOne(@PathVariable("ingredientId") Long ingredientId) {
+		log.info("getOne 메서드 실행");
+		return ResponseEntity.ok(ingredientService.getOne(ingredientId));
+	}
 }

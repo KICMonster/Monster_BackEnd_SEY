@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.monster.luvCocktail.domain.dto.CocktailResponse;
 import com.monster.luvCocktail.domain.dto.IngredientResponse;
+import com.monster.luvCocktail.domain.entity.Cocktails;
 import com.monster.luvCocktail.domain.entity.Ingredient;
 import com.monster.luvCocktail.domain.repository.IngredientRepository;
 
@@ -29,6 +31,21 @@ public class IngredientServiceImpl implements IngredientService {
                         ingredient.getDescription(), ingredient.getImage()))
                 .collect(Collectors.toList());
         return response;
+	}
+
+	@Override
+	public IngredientResponse getOne(Long ingredientId) {
+		
+		Ingredient ingredient = ingredientRepository.findById(ingredientId).orElseThrow();
+		IngredientResponse response = new IngredientResponse(
+				ingredient.getId(),
+				ingredient.getName(),
+				ingredient.getImage(),
+				ingredient.getCategory(),
+				ingredient.getDescription()
+				);
+				
+		return response;
 	}
  
 

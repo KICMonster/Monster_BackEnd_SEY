@@ -11,5 +11,5 @@ public interface IngredientService {
 
 	List<IngredientResponse> getList();
 	
-//	CocktailResponse getOne(Long cocktailId);
+	IngredientResponse getOne(Long ingredientId);
 }
