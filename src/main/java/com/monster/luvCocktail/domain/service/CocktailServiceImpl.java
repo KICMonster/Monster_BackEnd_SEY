@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.monster.luvCocktail.domain.dto.CocktailResponse;
 import com.monster.luvCocktail.domain.entity.Cocktails;
-import com.monster.luvCocktail.domain.repository.CocktailRepository;
+import com.monster.luvCocktail.domain.repository.CocktailsRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class CocktailServiceImpl implements CocktailService {
 
-	private final CocktailRepository cocktailRepository;
+	private final CocktailsRepository cocktailRepository;
 	
 	@Override	//readonly = true
 	public List<CocktailResponse> getList() {

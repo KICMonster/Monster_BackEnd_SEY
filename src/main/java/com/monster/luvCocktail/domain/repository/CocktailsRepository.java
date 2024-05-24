@@ -8,7 +8,7 @@ import com.monster.luvCocktail.domain.entity.Cocktails;
 
 import java.util.List;
 
-public interface CocktailRepository extends JpaRepository<Cocktails, Long> {
+public interface CocktailsRepository extends JpaRepository<Cocktails, Long> {
     List<Cocktails> findByRecommendIn(List<String> tasteIds);
     List<Cocktails> findByrcWeather(String weatherCode);
     @EntityGraph(attributePaths = {"views"})

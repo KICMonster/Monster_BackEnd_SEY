@@ -31,7 +31,7 @@ public class SearchService {
         dto.setIngredient1(cocktail.getIngredient1());
         dto.setIngredient2(cocktail.getIngredient2());
         dto.setIngredient3(cocktail.getIngredient3());
-        dto.setAlcohol_content(cocktail.getAlcohol_content());
+//        dto.setAlcohol_content(cocktail.getAlcohol_content());
         // 조회수 설정
         dto.setViewCount((long) cocktail.getViews().size());
         // 나머지 필드도 동일하게 설정해줄 수 있습니다.

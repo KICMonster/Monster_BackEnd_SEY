@@ -35,7 +35,7 @@ public class Cocktails {
     @Column(name = "CCL_CHECK_STATUS")
     private String ccl;
     
-    @Column(name = "RC_WEATHER")
+    @Column(name = "RC_WEATHER_ID")
     private String weatherId;
     
     @Column(name = "CK_INGREDIENT1")
@@ -61,6 +61,7 @@ public class Cocktails {
     
     @Column(name = "CK_RECOMMEND")
     private String recommend;
+    
     private String rcWeather;
 
 
