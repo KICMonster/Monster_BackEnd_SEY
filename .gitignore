@@ -105,3 +105,6 @@ local.properties
 
 # vscode
 *.env
+
+#translate
+src/main/resources/google-translate.json
