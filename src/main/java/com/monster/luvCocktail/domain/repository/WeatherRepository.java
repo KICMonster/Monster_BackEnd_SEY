@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WeatherRepository extends JpaRepository<Weather, String> { // Long 타입으로 변경
+public interface WeatherRepository extends JpaRepository<Weather, Long> { // Long 타입으로 변경
     Optional<Weather> findByWeatherSt(String weatherSt);
 }
