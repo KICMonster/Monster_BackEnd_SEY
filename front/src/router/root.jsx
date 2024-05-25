@@ -3,7 +3,6 @@ import Home from '../pages/Home';
 import LoginPage from '../pages/LoginPage';
 import LoginRouter from './LoginRouter';
 import Mypage from '../pages/Mypage';
-import JoinRouter from './JoinRouter';
 
 import AdditionalForm from '../component/login/AdditionalForm';
 import { Suspense } from 'react';
