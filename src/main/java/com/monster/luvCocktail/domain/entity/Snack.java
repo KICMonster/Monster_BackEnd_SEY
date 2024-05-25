@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Ingredient {
+@SequenceGenerator(name = "SNACK_SEQ_GENERATOR", sequenceName = "SNACK_SEQ", allocationSize = 1)
+public class Snack {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SNACE_SEQ_GENERATOR")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SNK_ID")
 	private Long id;
 	

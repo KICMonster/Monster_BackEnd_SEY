@@ -51,6 +51,8 @@ dependencies {
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.264'
     
     implementation 'com.sun.mail:smtp:2.0.1'
+   	implementation 'com.google.cloud:google-cloud-translate:2.43.0'
+   	implementation 'org.json:json:20210307'
 
 
 }

@@ -1,12 +1,12 @@
 package com.monster.luvCocktail.domain.service;
 
 import com.monster.luvCocktail.domain.Enumeration.ExceptionCode;
-import com.monster.luvCocktail.domain.repository.CocktailsRepository;
+import com.monster.luvCocktail.domain.repository.CocktailRepository;
 import com.monster.luvCocktail.domain.Enumeration.EmailVerificationResult;
 import com.monster.luvCocktail.domain.Enumeration.LoginType;
 import com.monster.luvCocktail.domain.Enumeration.Role;
 import com.monster.luvCocktail.domain.dto.JoinRequestDTO;
-import com.monster.luvCocktail.domain.entity.Cocktails;
+import com.monster.luvCocktail.domain.entity.Cocktail;
 import com.monster.luvCocktail.domain.entity.Member;
 import com.monster.luvCocktail.domain.exception.BusinessLogicException;
 import com.monster.luvCocktail.domain.repository.MemberRepository;
@@ -38,7 +38,7 @@ public class MemberService {
 
     private final InMemoryAuthCodeStore inMemoryAuthCodeStore;
     private final PasswordEncoder passwordEncoder;
-    private final CocktailsRepository cocktailsRepository;
+    private final CocktailRepository cocktailsRepository;
 
     @Value("${spring.mail.properties.auth-code-expiration-millis}")
     private long authCodeExpirationMillis;
@@ -141,11 +141,11 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public List<Cocktails> findCocktailsByTaste(List<String> tasteIds) {
+    public List<Cocktail> findCocktailsByTaste(List<String> tasteIds) {
 
 
         // recommend 값에 해당하는 칵테일 정보를 가져옵니다.
-        List<Cocktails> recommendedCocktails = cocktailsRepository.findByRecommendIn(tasteIds);
+        List<Cocktail> recommendedCocktails = cocktailsRepository.findByRecommendIn(tasteIds);
 
         // 추천된 칵테일 리스트를 반환합니다.
         return recommendedCocktails;

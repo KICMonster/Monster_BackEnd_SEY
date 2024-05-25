@@ -1,7 +1,7 @@
 package com.monster.luvCocktail.domain.controller;
 
 import com.monster.luvCocktail.domain.dto.WeatherDTO;
-import com.monster.luvCocktail.domain.entity.Cocktails;
+import com.monster.luvCocktail.domain.entity.Cocktail;
 import com.monster.luvCocktail.domain.service.SearchService;
 import com.monster.luvCocktail.domain.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,12 @@ public class WeatherController {
 
 
     @GetMapping("/api/today")
-    public ResponseEntity<Map<String, Object>> getRecommendCocktailsByWeather(@RequestParam double lat, @RequestParam double lon) {
+    public ResponseEntity<Map<String, Object>> getRecommendCocktailsByWeather(@RequestParam("lat") double lat, @RequestParam("lon") double lon) {
         System.out.println("lat: " + lat + ", lon: " + lon);
         WeatherDTO weatherInfo = weatherService.getWeather(lat, lon).block();
         String weatherCode = weatherService.getWeatherCode(weatherInfo);
 
-        List<Cocktails> recommendedCocktails = searchService.findCocktailsByWeatherCode(weatherCode);
+        List<Cocktail> recommendedCocktails = searchService.findCocktailsByWeatherCode(weatherCode);
 
         Map<String, Object> response = new HashMap<>();
         response.put("weatherInfo", weatherInfo);

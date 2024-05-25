@@ -5,12 +5,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@SequenceGenerator(name = "Weather_seq", sequenceName = "Weather_seq", allocationSize = 1)
+@SequenceGenerator(name = "Weather_seq_GENERATOR", sequenceName = "Weather_seq", allocationSize = 1)
 public class Weather {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Weather_seq")
-    private String weatherCd;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "Weather_seq_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private String weatherCd;
+    private Long weatherCd;
     private String weatherNm;
     private String weatherSt;
 }

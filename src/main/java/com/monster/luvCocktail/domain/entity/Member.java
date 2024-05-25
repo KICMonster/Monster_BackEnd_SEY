@@ -14,11 +14,12 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@SequenceGenerator(name = "member_seq", sequenceName = "member_seq", allocationSize = 1)
+@SequenceGenerator(name = "MEMBER_SEQ_GENERATOR", sequenceName = "MEMBER_SEQ", allocationSize = 1)
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "member_seq")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "MEMBER_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String email;           // 로그인시 id값 역할. 이메일 밸리데이션 체크 필수(방법은 알아서)

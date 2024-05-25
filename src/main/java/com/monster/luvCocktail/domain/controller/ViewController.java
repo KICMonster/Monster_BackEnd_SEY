@@ -1,8 +1,8 @@
 package com.monster.luvCocktail.domain.controller;
 
-import com.monster.luvCocktail.domain.entity.Cocktails;
+import com.monster.luvCocktail.domain.entity.Cocktail;
 import com.monster.luvCocktail.domain.entity.View;
-import com.monster.luvCocktail.domain.repository.CocktailsRepository;
+import com.monster.luvCocktail.domain.repository.CocktailRepository;
 import com.monster.luvCocktail.domain.repository.ViewRepository;
 import com.monster.luvCocktail.domain.service.ViewService;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +20,11 @@ import java.util.concurrent.Executors;
 @RestController
 public class ViewController {
     private final ViewService viewService;
-    private final CocktailsRepository cocktailsRepository;
+    private final CocktailRepository cocktailsRepository;
     private final ViewRepository viewRepository;
     private final ExecutorService executorService = Executors.newFixedThreadPool(10); // 적절한 스레드 풀 설정(다중 스레드 처리)
 
-    public ViewController(ViewService viewService, CocktailsRepository cocktailsRepository, ViewRepository viewRepository) {
+    public ViewController(ViewService viewService, CocktailRepository cocktailsRepository, ViewRepository viewRepository) {
         this.viewService = viewService;
         this.cocktailsRepository = cocktailsRepository;
         this.viewRepository = viewRepository;
@@ -41,7 +41,7 @@ public class ViewController {
         String timestamp = request.get("timestamp");
 
         // 칵테일 조회
-        Cocktails cocktail = cocktailsRepository.findById(id)
+        Cocktail cocktail = cocktailsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cocktail not found"));
 
         // 비동기로 조회 로그 생성 처리

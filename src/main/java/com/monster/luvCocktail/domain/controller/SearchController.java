@@ -2,7 +2,7 @@ package com.monster.luvCocktail.domain.controller;
 
 import com.monster.luvCocktail.domain.dto.CocktailDTO;
 import com.monster.luvCocktail.domain.dto.TasteStringDTO;
-import com.monster.luvCocktail.domain.entity.Cocktails;
+import com.monster.luvCocktail.domain.entity.Cocktail;
 import com.monster.luvCocktail.domain.entity.Member;
 import com.monster.luvCocktail.domain.repository.MemberRepository;
 import com.monster.luvCocktail.domain.service.JwtService;
@@ -37,7 +37,7 @@ public class SearchController {
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/updateTasteAndRecommend")
-    public ResponseEntity<List<Cocktails>> updateTasteAndRecommend(@RequestHeader("Authorization") String jwtToken, @RequestBody TasteStringDTO tasteString) {
+    public ResponseEntity<List<Cocktail>> updateTasteAndRecommend(@RequestHeader("Authorization") String jwtToken, @RequestBody TasteStringDTO tasteString) {
         // "Bearer " 접두사 제거
         if (jwtToken != null && jwtToken.startsWith("Bearer ")) {
             jwtToken = jwtToken.substring(7);
@@ -69,7 +69,7 @@ public class SearchController {
 
 
         // 칵테일 테이블에서 해당 숫자에 해당하는 칵테일 검색
-        List<Cocktails> recommendedCocktails = memberService.findCocktailsByTaste(tasteIds);
+        List<Cocktail> recommendedCocktails = memberService.findCocktailsByTaste(tasteIds);
 
         System.out.println("추천 칵테일: " + recommendedCocktails);
         // 응답 데이터 설정

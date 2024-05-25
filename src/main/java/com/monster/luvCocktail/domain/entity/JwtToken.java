@@ -9,11 +9,12 @@ import java.time.LocalDate;
 @Data
 @Entity
 @NoArgsConstructor
-@SequenceGenerator(name = "token_seq", sequenceName = "token_seq", allocationSize = 1)
+@SequenceGenerator(name = "TOKEN_SEQ_GENERATOR", sequenceName = "TOKEN_SEQ", allocationSize = 1)
 public class JwtToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "token_seq")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "TOKEN_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tokenId; // 소문자로 변경: Java 카멜 케이스 규칙을 따름
 
     private String grantType;
@@ -25,5 +26,4 @@ public class JwtToken {
     @JoinColumn(name = "member_id") // 외래 키의 이름 지정
     private Member member;
 
-    // 생성자, Getter, Setter 메서드는 @Data 어노테이션으로 인해 자동으로 생성됩니다.
 }
