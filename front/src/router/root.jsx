@@ -21,10 +21,11 @@ import GisPage from '../pages/GisPage';
 import ViewPage from '../pages/cocktail/ViewPage';
 import RecommendCocktail from '../pages/cocktail/RecommendCocktail';
 import MyCocktail from '../pages/contents/MyCocktail';
-import Loading from '../pages/Loading'; 
+import Loading from '../pages/Loading';
 import Snackpage from '../pages/cocktail/Snackpage';
 import CustomCocktail from '../pages/contents/CustomCocktail';
 import CustomCocktailPage from '../pages/cocktail/CustomCocktailPage';
+import TasteStart from '../pages/contents/TasteStart';
 
 const root = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const root = createBrowserRouter([
     element: <Suspense fallback={<Loading />}><CraftPage /></Suspense>                     //기초제조법페이지
   },
   {
+    path: '/tastestart',
+    element: <Suspense fallback={Loading}><TasteStart /></Suspense>             //재료리스트
+  },
+  {
     path: '/taste', // 기호조사. 필요 페이지와 연결할것.지금은 home.jsx에 버튼. 회원가입 페이지와 연결할 경우 로직 수정할 필요.   
     element: <TasteAnalysis />, // 회원가입 로직과 연결 할 시 프론트 경로작업&비동기 통신전달값 추가 후 백엔드에 문의
     children: [
@@ -84,7 +89,7 @@ const root = createBrowserRouter([
   },
   {
     path: '/weather',
-    element: <Suspense fallback={<Loading />}><Weather /></Suspense> 
+    element: <Suspense fallback={<Loading />}><Weather /></Suspense>
   },
   {
     path: '/mapsearch',

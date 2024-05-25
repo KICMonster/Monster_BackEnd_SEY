@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import defaultImage from '../../img/main1.png';
 import newImage from '../../img/main2.jpg';
+import { Link } from 'react-router-dom';
 
 // 임의의 칵테일 이름과 설명
 const cocktails = [
@@ -16,12 +17,10 @@ function RecommendedList() {
 
 
     return (
-        <div style={{ position: 'relative', maxWidth: '1000px', margin: 'auto' }}>
-           
-            <div >
-                
-                <button onClick={() => window.location.href = '/ViewPage'} style={{ marginTop: '10px', marginRight: '10px' }}>마시러 가기</button>
-            </div>
+        <div className='sdsad'>
+
+            <Link to={'/ViewPage'}> <button className='parng__btn' style={{ margin: '10px 0 ', padding: '0 50px' }}>마시러 가기</button></Link>
+
         </div>
     );
 }

@@ -19,8 +19,8 @@
   }
   
   .side-menu-item p {
-    margin: 10px 0 0;
-    font-size: 14px;
+    height: 20px;
+    margin: 15px 0 0;
     font-weight: bold;
   }
   
