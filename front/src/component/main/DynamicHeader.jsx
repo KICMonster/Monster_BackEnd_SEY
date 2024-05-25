@@ -3,7 +3,7 @@ import TopNavBar from './TopNavBar';
 import SearchBar from './SearchBar';
 import LoginButton from './LoginButton';
 
-function  DynamicHeader() {
+function DynamicHeader() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isShrunk, setShrunk] = useState(false);
 
@@ -26,11 +26,11 @@ function  DynamicHeader() {
 
   return (
     <header className='header'>
-      <div className="header-content">
-        <TopNavBar isShrunk={isShrunk} /> 
+      <div className="container-lg">
+        <TopNavBar isShrunk={isShrunk} />
         <div className="right-section">
-        <SearchBar />
-        <LoginButton />
+          <SearchBar />
+          <LoginButton />
         </div>
       </div>
     </header>
