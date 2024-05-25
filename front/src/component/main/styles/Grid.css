@@ -1,165 +1,190 @@
-.container {
-    margin: 0 15%;
-    display: grid;
-    justify-content: start;
-    padding: 0 20px 0 0;
-    grid-gap: 10px;
-  }
-  
-  .image-container {
-    grid-column: 1 / span 3;
-    grid-row: 1 / span 2;
-    position: relative;
-    margin: 40px 0;
-    overflow: hidden; /* 이미지가 컨테이너를 벗어나지 않도록 설정 */
-    display: flex; /* Flexbox를 사용하여 이미지 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-  }
-  
-  .image-container img {
-    height: 500px;
-    max-height: 420px; /* 이미지의 최대 높이를 설정하여 컨테이너를 벗어나지 않도록 설정 */
-    width: 100%; /* 컨테이너 너비에 맞추도록 설정 */
-    object-fit: cover; /* 이미지가 컨테이너 내에 잘 맞도록 설정 */
-  }
-  
-  .image-text {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 1.5em;
-  }
+.image-container {
+  grid-column: 1 / span 3;
+  grid-row: 1 / span 2;
+  position: relative;
+  margin: 40px 0;
+  overflow: hidden;
+  /* 이미지가 컨테이너를 벗어나지 않도록 설정 */
+  display: flex;
+  /* Flexbox를 사용하여 이미지 정렬 */
+  align-items: center;
+  /* 수직 중앙 정렬 */
+  justify-content: center;
+  /* 수평 중앙 정렬 */
+}
 
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .arrow-button,
-  .random-button {
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: white;
-    font-size: 2em;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .arrow-button.left {
-    left: 0;
-  }
-  
-  .arrow-button.right {
-    right: 0;
-  }
-  
-  .description {
-    grid-column: 4 / span 5;
-    grid-row: 1;
-  }
-  
-  .operation {
-    grid-column: 4 / span 3;
-    grid-row: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-   }
-      
-  .operation .side-menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-   }
-      
-  .operation .side-menu img {
-    width: 100%;
-    max-width: 150px; /* 이미지의 최대 너비를 설정하여 컨테이너를 벗어나지 않도록 설정 */
-    height: 100px;
-    margin: 2px;
-    border-radius: 8px;
-   }
-  
-  .content {
-    grid-column: 8;
-    grid-row: 2;
-  }
-  
-  .content img {
-    height: 300px;
-  }
-  
-  .advertisement {
-    grid-column: 1 / span 1; /* 광고를 전체 너비로 확장 */
-    grid-row: 3;
-    margin: 50px 0;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: left; 
-  }
+.image-container img {
+  height: 500px;
+  max-height: 420px;
+  /* 이미지의 최대 높이를 설정하여 컨테이너를 벗어나지 않도록 설정 */
+  width: 300px;
+  /* 컨테이너 너비에 맞추도록 설정 */
 
-  .footer-ad {
-    grid-column: 1 / span 8;
-    grid-row: 3;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    padding: 10px 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .coupang-ad {
-    display: flex;
-    justify-content: center;
-  }
-  
+  /* 이미지가 컨테이너 내에 잘 맞도록 설정 */
+}
 
-  
-  .image-container,
-  .description,
-  .operation,
-  .content {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+.image-text {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.5em;
+}
 
-  
-  .random-button {
-    border-radius: 5px;
-    padding: 10px 20px;
-    background-color: #B8D0FA;
-    border: none;
-    color: white;
-    font-size: 2em;
-    cursor: pointer;
-    margin-top: 40px;
-    transition: background-color 0.3s ease; /* 부드러운 색상 변화를 위한 트랜지션 추가 */
-  }
-  
-  .random-button:hover {
-    background-color: #8b9ebd; /* 마우스 오버 시 색상 변경 */
-  }
-  
-  .random-button:active {
-    background-color: #16376e; /* 클릭 시 색상 변경 */
-  }
-  
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow-button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.arrow-button.left {
+  left: 0;
+}
+
+.arrow-button.right {
+  right: 0;
+}
+
+.description {
+  grid-column: 4 / span 5;
+  grid-row: 1;
+}
+
+.operation {
+  grid-column: 4 / span 3;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.operation .side-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.operation .side-menu img {
+  width: 100%;
+  max-width: 150px;
+  /* 이미지의 최대 너비를 설정하여 컨테이너를 벗어나지 않도록 설정 */
+  height: 100px;
+  margin: 2px;
+  border-radius: 8px;
+}
+
+.content {
+  grid-column: 8;
+  grid-row: 2;
+}
+
+.content img {
+  height: 300px;
+}
+
+.advertisement {
+  grid-column: 1 / span 1;
+  /* 광고를 전체 너비로 확장 */
+  grid-row: 3;
+  margin: 50px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.footer-ad {
+  grid-column: 1 / span 8;
+  grid-row: 3;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 10px 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.coupang-ad {
+  display: flex;
+  justify-content: center;
+}
 
 
 
+.image-container,
+.description,
+.operation,
+.content {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 
+.random-button {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #B8D0FA;
+  border: none;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  margin-top: 40px;
+  transition: background-color 0.3s ease;
+  /* 부드러운 색상 변화를 위한 트랜지션 추가 */
+}
 
-  
+.random-button:hover {
+  background-color: #8b9ebd;
+  /* 마우스 오버 시 색상 변경 */
+}
+
+.random-button:active {
+  background-color: #16376e;
+  /* 클릭 시 색상 변경 */
+}
+
+
+.sdsad {
+  position: 'relative';
+  max-width: '1000px';
+  margin: 'auto'
+}
+
+.sdsad a {
+  text-decoration: none ;
+}
+
+.parng__btn {
+  width: 100%;
+  background-color: #b8d0fa;
+  color: white;
+  display: block;
+  height: 50px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  box-shadow: 0 15px 30px #b8d0fa75;
+  transition: .2s linear;
+
+  &:hover {
+    background-color: #9db2d6;
+    box-shadow: 0 0 0 rgba(233, 30, 98, 0);
+  }
+}

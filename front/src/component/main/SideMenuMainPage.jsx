@@ -29,7 +29,7 @@ function SideMenuMainPage() {
         <div key={menu.id} className="side-menu-item">
           <a href={menu.link} target="_blank" rel="noopener noreferrer">
             <img src={menu.image} alt={menu.name} />
-            <p>{menu.name}</p>
+            <p>{menu.name.length > 6 ? menu.name.slice(0, 6) + "..." : menu.name}</p>
           </a>
         </div>
       ))}

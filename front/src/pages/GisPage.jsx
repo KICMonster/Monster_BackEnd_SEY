@@ -56,7 +56,7 @@ function GisPage() {
                     <li className="GisPlaceItem">
                       <p className="GisPlaceName">{place.place_name}</p>
                       <p className="GisAddressName">{place.address_name}</p>
-                      <p className="GisPhone">{place.distance}m</p>
+                      <p className="GisPhone">{place.distance}</p>
                       <p className="GisPhone">{place.phone}</p>
                     </li>
                   </Link>

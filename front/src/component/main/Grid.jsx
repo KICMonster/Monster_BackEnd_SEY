@@ -42,42 +42,38 @@ function Grid() {
   return (
     <div className="container">
       <div className="image-container">
-        <div className="image-text">
-          <h1>오늘의 칵테일</h1>
-        </div>
         {cocktails.length > 0 && (
-          <div>
+          <div className='image-interval'>
+            <h1>오늘의 칵테일</h1>
             <img src={cocktails[currentIndex].image} alt="Random Cocktail" />
+            <RecommendedList />
           </div>
         )}
       </div>
 
 
-      <div className="description" style={{marginBottom:'0px', paddingBottom: '50px'}}>
+      <div className="description" style={{ marginBottom: '0px', paddingBottom: '50px' }}>
         <div>
           <h1>{cocktail[Math.floor(Math.random() * cocktails.length)].name}</h1>
           <p>{cocktail[Math.floor(Math.random() * cocktails.length)].description}</p>
         </div>
         <p className='recipe'>
-          칵테일은 술과 여러 종류의 음료, 첨가물 등을 섞어 만든 혼합주를 일컫는다.
-          다만, 무알콜 칵테일도 있으며 이들은 목테일(Mocktail, Mock과 Cocktail의 합성어)
-          이라고 부른다. 사람의 기호와 취향에 맞추어 독특한 맛과 빛깔을 낼 수 있다.
-          명칭의 유래에 대해서는 여러 가지 설이 있지만, 1795년쯤 미국 루이지애나주.
+          오늘의 칵테일 기능은 사용자의 현재 위치와 날씨를 분석하여 그 날씨에 어울리는 칵테일을 추천해주는 서비스입니다. 날씨 정보에 맞춰 자동으로 최적의 칵테일을 찾아주고, 레시피와 만드는 방법도 함께 제공합니다.
         </p>
       </div>
 
-      <div className="operation" style={{marginTop:'0px'}}>
+      <div className="operation" style={{ marginTop: '0px' }}>
         <h1>사이드</h1>
+        <h6>칵테일과 어울리는 사이드 메뉴들...</h6>
         <div className="side-menu">
           <SideMenuMainPage />
         </div>
-        <RecommendedList />
       </div>
 
-      <div className="content" style={{marginTop:'0px'}}>
+      <div className="content" style={{ marginTop: '0px' }}>
         <h1>컨텐츠</h1>
         <div className="button-container">
-          <Link to={"/mapsearch"}><button className="random-button">GIS</button></Link>
+          <Link to={"/mapsearch"}><button className="random-button" >칵테일 바 찾기</button></Link>
           <button onClick={handleRandomClick} className="random-button">
             다른칵테일
           </button>
@@ -85,7 +81,7 @@ function Grid() {
       </div>
 
       <div className="footer-ad">
-        <img />
+        {/* <div class="image image--contain" style="background-image: url(&quot;https://sin.creativecdn.com/images?id=02eaa98033e31bd7e84dafb281f2633ccf07479c&amp;w=119&amp;h=115&amp;o=1005005519378877&amp;fid=2zTjYdIa0F6j6ke8d6fF&amp;f=3&quot;);"></div> */}
       </div>
     </div>
   );

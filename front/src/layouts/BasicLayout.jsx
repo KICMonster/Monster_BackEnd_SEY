@@ -70,18 +70,21 @@ function BasicLayout({ children }) {
       </div>
       <div className="info">
         {children}
-      </div>
-      <canvas ref={canvasRef} id="canvas"></canvas>
-      <div className="wrapper">
-        <div className="colorizer1"></div>
-        <div className="colorizer2"></div>
-        <div className="colorizer3"></div>
-        <div className="colorizer4"></div>
-        <div className="circles">
-          {circles}
-          {/* 150개의 원이 여기에 추가됨 */}
+        <div className="canvasBody">
+          <div className="wrapper">
+            <div className="colorizer1"></div>
+            <div className="colorizer2"></div>
+            <div className="colorizer3"></div>
+            <div className="colorizer4"></div>
+            <div className="circles">
+              {circles}
+              {/* 150개의 원이 여기에 추가됨 */}
+            </div>
+          </div>
         </div>
       </div>
+      <canvas ref={canvasRef} id="canvas"></canvas>
+
       <footer className="footer">
         <a href="/#">고객센터</a>
       </footer>

@@ -1,9 +1,15 @@
 @use 'sass:math';
-
-body {
+body{
   background: linear-gradient(to top left, #3F1344 10%, #4A1742 20%, #522357 50%, #5539B2);
+  overflow-x: hidden;
+}
+.info{
+  height: 100%;
+  overflow-x: hidden;
+}
+.canvasBody {
   height: 100vh;
-
+  overflow-x: hidden;
 }
 
 $primary_colors: #A135D8, #B13CC8, #D562C7, #BD369D, #7022B6, #F777EE, #D15BB1, #8E39A0, #6F38DC, #6E44C2, #E2BCE1, #E8EBFA, #D8B1F4, #DC59C1, #EAC5E6, #A83E9A, #DFB2E9;
