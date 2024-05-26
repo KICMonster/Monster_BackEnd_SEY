@@ -139,4 +139,4 @@ local.properties
 .yaml
 .build.resources
 .out/production/resources
-.keystore
+.keystore.p12
