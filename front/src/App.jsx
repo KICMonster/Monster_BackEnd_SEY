@@ -10,7 +10,7 @@ function App() {
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500); // 0.5초 후에 로딩 해제
+    }, 100); // 0.5초 후에 로딩 해제
     return () => clearTimeout(timer);
   }, []);
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import IconRenderer from '../renderIcon'; // 아이콘 렌더링 컴포넌트 import
+import BasicLayout from '../../layouts/BasicLayout';
 
 const WeatherButton = () => {
   const [weather, setWeather] = useState(null);
@@ -67,7 +68,7 @@ const WeatherButton = () => {
   };
 
   return (
-    <div>
+    <BasicLayout>
       <button onClick={handleGetCurrentLocation} disabled={loadingWeather}>
         {loadingWeather ? 'Loading...' : 'Get Weather for Current Location'}
       </button>
@@ -93,7 +94,7 @@ const WeatherButton = () => {
       <button onClick={handleGetRandomCocktail} disabled={loadingRandomCocktail || !cocktails.length}>
         {loadingRandomCocktail ? 'Loading...' : 'Get Random Cocktail'}
       </button>
-    </div>
+      </BasicLayout>
   );
 };
 

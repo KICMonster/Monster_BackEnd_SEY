@@ -47,6 +47,11 @@ const OptionSelector = ({ onSelectionComplete }) => {
           </button>
         ))}
       </div>
+      <img 
+        src="https://example.com/your-image.jpg" // 원하는 이미지 URL로 변경
+        alt="Survey related"
+        className="survey-image"
+      />
     </div>
   );
 };

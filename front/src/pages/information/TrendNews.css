@@ -11,7 +11,7 @@
 }
 
 .main-container .content {
-    width: 960px; /* 뉴스 컨텐츠 너비 설정 */
+    height: 760px;
 }
 
 .ad-sidebar {
@@ -22,6 +22,8 @@
 
 /* 기사 컨테이너 */
 .article-container {
+    height: 210px;
+    width: 816.922px;
     display: flex;
     background: white;
     margin: 20px 0; /* 가운데 정렬에서 좌우 마진 제거 */
@@ -29,14 +31,16 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     align-items: flex-start; /* 이미지와 내용을 상단에 정렬 */
-    width: 100%; /* 컨테이너 가로 사이즈 조정 */
+    transition: opacity 0.5s ease-in-out; /* 페이드 인/아웃 효과 추가 */
 }
 
 /* 기사 이미지 스타일 */
 .article-container img {
     width: 200px; /* 이미지 크기를 200px로 조정 */
-    height: auto; /* 높이를 자동으로 조정하여 비율 유지 */
+    height: 170px; /* 높이를 자동으로 조정하여 비율 유지 */
     margin-right: 20px; /* 이미지와 텍스트 사이 간격 */
+    border-radius: 8px;
+    transition: opacity 0.5s ease-in-out; /* 페이드 인/아웃 효과 추가 */
 }
 
 /* 기사 내용과 링크 컨테이너 */
@@ -45,7 +49,24 @@
     display: flex;
     flex-direction: column; /* 세로로 내용 배치 */
     justify-content: space-between; /* 내용과 링크 사이 공간 최대화 */
+    transition: opacity 0.5s ease-in-out; /* 페이드 인/아웃 효과 추가 */
 }
+
+/* 기사 컨테이너가 마우스를 올릴 때 효과 */
+.article-container:hover {
+    opacity: 0.9;
+}
+
+/* 기사 이미지가 마우스를 올릴 때 효과 */
+.article-container:hover img {
+    opacity: 0.9;
+}
+
+/* 기사 내용과 링크가 마우스를 올릴 때 효과 */
+.article-container:hover .article-content {
+    opacity: 0.9;
+}
+
 
 /* 기사 제목 */
 .main-container h1 {
@@ -64,25 +85,6 @@
     text-decoration: underline;
 }
 
-/* 버튼 스타일 */
-.main-container button {
-    background-color: #0084ff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.main-container button:disabled {
-    background-color: #ccc;
-}
-
-.main-containerbutton:hover {
-    background-color: #0056b3;
-}
-
 /* 링크 스타일 */
 .link-home {
     display: inline-block;
@@ -95,4 +97,31 @@
 
 .link-home:hover {
     background-color: #e2e2e2;
+}
+
+/* 버튼 스타일 */
+.main-container button {
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 710px;
+    width:  140px;
+}
+
+.main-container button:disabled {
+    background-color: #ccc;
+}
+
+.main-containerbutton:hover {
+    background-color: #0056b3;
+}
+
+
+
+.linkmain{
+    display: flex;
 }

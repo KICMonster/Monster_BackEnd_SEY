@@ -20,57 +20,57 @@ import GisPage from '../pages/GisPage';
 import ViewPage from '../pages/cocktail/ViewPage';
 import RecommendCocktail from '../pages/cocktail/RecommendCocktail';
 import MyCocktail from '../pages/contents/MyCocktail';
-import Loading from '../pages/Loading';
 import Snackpage from '../pages/cocktail/Snackpage';
 import CustomCocktail from '../pages/contents/CustomCocktail';
 import CustomCocktailPage from '../pages/cocktail/CustomCocktailPage';
 import TasteStart from '../pages/contents/TasteStart';
+import CocktailSearchChart from '../component/detail/CocktailSearchChart';
 
 const root = createBrowserRouter([
   {
     path: '',
-    element: <Suspense fallback={<Loading />}><Home /></Suspense>         //메인화면
+    element: <Home />         //메인화면
   },
   {
     path: '/login',
-    element: <Suspense fallback={<Loading />}><LoginPage /></Suspense>,
+    element: <LoginPage />,
     children: LoginRouter() // LoginRouter()가 객체를 반환하므로 이를 바로 사용     //로그인
   },
   {
     path: '/additional',
-    element: <Suspense fallback={<Loading />}><AdditionalForm /></Suspense>           //회원가입   
+    element: <AdditionalForm />           //회원가입   
   },
   {
     path: '/mypage',
-    element: <Suspense fallback={<Loading />}><Mypage /></Suspense>                   //프로필
+    element: <Mypage />                   //프로필
   },
   {
     path: '/ViewPage',
-    element: <Suspense fallback={<Loading />}><ViewPage /></Suspense>                  // 칵테일 리스트
+    element: <ViewPage />                  // 칵테일 리스트
   },
   {
     path: '/ViewPage/:id',
-    element: <Suspense fallback={<Loading />}><ViewPage /></Suspense>                  // 칵테일 리스트
+    element: <ViewPage />                  // 칵테일 리스트
   },
   {
     path: '/cocktail/:cocktailId',
-    element: <Suspense fallback={<Loading />}><CocktailDetail /></Suspense> // 칵테일 상세 페이지
+    element: <CocktailDetail /> // 칵테일 상세 페이지
   },
   {
     path: '/Ingredient',
-    element: <Suspense fallback={<Loading />}><IngredientPage /></Suspense>             //재료리스트
+    element: <IngredientPage />             //재료리스트
   },
   {
     path: '/history',
-    element: <Suspense fallback={<Loading />}><HistoryPage /></Suspense>                //역사 페이지
+    element: <HistoryPage />                //역사 페이지
   },
   {
     path: '/craft/:key',
-    element: <Suspense fallback={<Loading />}><CraftPage /></Suspense>                     //기초제조법페이지
+    element: <CraftPage />                     //기초제조법페이지
   },
   {
     path: '/tastestart',
-    element: <Suspense fallback={Loading}><TasteStart /></Suspense>             //재료리스트
+    element: <TasteStart />             //재료리스트
   },
   {
     path: '/taste', // 기호조사. 필요 페이지와 연결할것.지금은 home.jsx에 버튼. 회원가입 페이지와 연결할 경우 로직 수정할 필요.   
@@ -88,7 +88,7 @@ const root = createBrowserRouter([
   },
   {
     path: '/weather',
-    element: <Suspense fallback={<Loading />}><Weather /></Suspense>
+    element: <Weather />
   },
   {
     path: '/mapsearch',
@@ -96,24 +96,28 @@ const root = createBrowserRouter([
   },
   {
     path: '/recommend',         // 칵테일 추천 페이지
-    element: <Suspense fallback={<Loading />}><RecommendCocktail /></Suspense>
+    element: <RecommendCocktail />
   },
   {
     path: '/customcocktail', // 커스텀 칵테일
-    element: <Suspense fallback={Loading}><CustomCocktail /></Suspense>
+    element: <CustomCocktail />
   },
   {
     path: '/mycocktail', // 커스텀 칵테일 게시판
-    element: <Suspense fallback={Loading}><MyCocktail /></Suspense>
+    element: <MyCocktail />
   },
   {
     path: '/snack/:id',
-    element: <Suspense fallback={<Loading />}><Snackpage /></Suspense>
+    element: <Snackpage />
   },
   {
     path: '/custom-cocktail',
     element: <CustomCocktailPage /> // 커스텀 칵테일 페이지
   },
+  {
+    path: '/chart',
+    element: <CocktailSearchChart /> // 커스텀 칵테일 페이지
+  }
 ]);
 
 export default root;

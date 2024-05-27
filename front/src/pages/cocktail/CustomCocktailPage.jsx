@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import BasicLayout from "../../layouts/BasicLayout";
 import { Link } from "react-router-dom";
-import "../../pages/cocktail/CustomCocktailPage.css";
+import "../../pages/contents/CustomCocktail.css"; // CSS 파일을 import
 
-function CustomCocktailPage() {
+function CustomCocktail() {
   const [cocktails, setCocktails] = useState([]);
   const [baseFilter, setBaseFilter] = useState('');
   const [alcoholFilter, setAlcoholFilter] = useState('');
@@ -11,20 +11,12 @@ function CustomCocktailPage() {
 
   const fetchAllCocktails = async () => {
     try {
-      // API 호출을 주석 처리하고 더미 데이터를 사용
-      // const endpoint = 'https://localhost:9092/api/custom-cocktail'; // API 엔드포인트 수정
-      // const response = await fetch(endpoint);
-      // const data = await response.json();
-
-      // 더미 데이터
-      const data = [
-        { id: 1, name: "Cocktail A", image: "https://via.placeholder.com/150", recommendCount: 5, ingredient1: "Vodka", alcoholic: "Yes" },
-        { id: 2, name: "Cocktail B", image: "https://via.placeholder.com/150", recommendCount: 15, ingredient1: "Gin", alcoholic: "Yes" },
-        { id: 3, name: "Cocktail C", image: "https://via.placeholder.com/150", recommendCount: 25, ingredient1: "Rum", alcoholic: "No" },
-        { id: 4, name: "Cocktail D", image: "https://via.placeholder.com/150", recommendCount: 35, ingredient1: "Tequila", alcoholic: "Yes" },
-        { id: 5, name: "Cocktail E", image: "https://via.placeholder.com/150", recommendCount: 20, ingredient1: "Whiskey", alcoholic: "No" }
-      ];
-      setCocktails(data);
+      const endpoint = 'https://localhost:9092/api/cocktail';
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      // 데이터를 셔플
+      const shuffledData = shuffleArray(data);
+      setCocktails(shuffledData);
 
       // 모든 고유한 리큐르 추출
       const uniqueIngredients = [...new Set(data.map(cocktail => cocktail.ingredient1))];
@@ -37,6 +29,15 @@ function CustomCocktailPage() {
   useEffect(() => {
     fetchAllCocktails();
   }, []);
+
+  // 배열을 셔플하는 함수
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 
   // 필터링된 칵테일 목록을 계산
   const filteredCocktails = cocktails.filter(cocktail => {
@@ -61,21 +62,6 @@ function CustomCocktailPage() {
     setAlcoholFilter('');
   };
 
-  // 추천 수에 따른 아이콘 선택 함수
-  const getRecommendationIconClass = (recommendCount) => {
-    if (recommendCount >= 30) return 'star-icon'; // 별
-    if (recommendCount >= 20) return 'heart-icon'; // 하트
-    if (recommendCount >= 10) return 'triangle-icon'; // 세모
-    return ''; // 기본 아이콘
-  };
-
-  const getRecommendationIcon = (recommendCount) => {
-    if (recommendCount >= 30) return '⭐'; // 별
-    if (recommendCount >= 20) return '❤️'; // 하트
-    if (recommendCount >= 10) return '▲'; // 세모
-    return '⬤'; // 기본 아이콘
-  };
-
   return (
     <BasicLayout>
       <div className="filter-dropdowns">
@@ -91,16 +77,16 @@ function CustomCocktailPage() {
           <option value="No">논알코올</option>
         </select>
         <button onClick={handleResetFilter}>Reset Filter</button>
+        <div className="my-cocktail-link">
+          <Link to="/mycocktail">My Cocktail</Link>
+        </div>
       </div>
       <div className="cocktail-list">
         {filteredCocktails.map(cocktail => (
-          <Link key={cocktail.id} to={`/custom-cocktail/${cocktail.id}`} className="cocktail-link">
+          <Link key={cocktail.id} to={`/cocktail/${cocktail.id}`} className="cocktail-link">
             <div className="cocktail-item">
               <div className="image-box">
-                <img src={cocktail.image || 'default-image-url.jpg'} alt={cocktail.name} className="cocktail-image" />
-                <div className={`recommendation-icon ${getRecommendationIconClass(cocktail.recommendCount)}`}>
-                  {getRecommendationIcon(cocktail.recommendCount)}
-                </div>
+                <img src={cocktail.imageUrl || 'default-image-url.jpg'} alt={cocktail.name} className="cocktail-image" />
               </div>
               <h2 className="cocktail-name">{cocktail.name}</h2>
             </div>
@@ -111,4 +97,4 @@ function CustomCocktailPage() {
   );
 }
 
-export default CustomCocktailPage;
+export default CustomCocktail;

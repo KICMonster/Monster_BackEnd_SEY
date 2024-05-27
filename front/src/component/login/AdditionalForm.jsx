@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { FaCheckCircle } from "react-icons/fa";
 import BasicLayout from "../../layouts/BasicLayout";
+import '../../component/main/styles/login.css'
 
 
 function AdditionalForm() {
@@ -128,115 +129,124 @@ function AdditionalForm() {
 
   return (
     <BasicLayout>
-      <form onSubmit={handleSubmit}>
-        <h4>추가정보를 입력해 주세요</h4>
-        <div>
-          <label htmlFor="email">이메일</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            readOnly // 수정 불가능하게 설정
-          />
-        </div>
-        <div>
-          <label htmlFor="password">비밀번호</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-          {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-          {!passwordError && password && <FaCheckCircle style={{ color: 'green' }} />}
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">비밀번호 확인</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            required
-          />
-          {confirmPasswordError && <div style={{ color: 'red' }}>{confirmPasswordError}</div>}
-          {!confirmPasswordError && confirmPassword && <FaCheckCircle style={{ color: 'green' }} />}
-        </div>
-        <div>
-          <label htmlFor="name">이름</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={handleNameChange}
-            required
-          />
-          {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
-        </div>
-        <div>
-          <label htmlFor="birth">생년월일</label>
-          <input
-            type="date"
-            id="birth"
-            value={birth}
-            onChange={(e) => setBirth(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">전화번호</label>
-          <input
-            type="tel"
-            id="phone"
-            value={phone}
-            onChange={handlePhoneChange}
-            required
-          />
-          {phoneError && <div style={{ color: 'red' }}>{phoneError}</div>}
-        </div>
-        <div>
-          <label>성별</label>
-          <div>
-            <input
-              type="radio"
-              id="gender-male"
-              name="gender"
-              value="male"
-              checked={gender == 'male'}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            />
-            <label htmlFor="gender-male" defaultChecked>남성</label>
+      <div className="logingrid">
+        <form onSubmit={handleSubmit}>
+          <h4 className='LoginHeader'>추가정보를 입력해 주세요</h4>
+          <div className="LoginMainBody" style={{display:'flex' ,flexDirection: 'column'}}>
+            <div className='email'>
+              <label htmlFor="email">이메일</label>
+              <input
+                placeholder={"Email"}
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                readOnly // 수정 불가능하게 설정
+              />
+            </div>
+            <div>
+              <label htmlFor="password">비밀번호</label>
+              <input
+                placeholder={"Passwrod"}
+                type="password"
+                id="password"
+                value={password}
+                onChange={handlePasswordChange}
+                required
+              />
+              {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+              {!passwordError && password && <FaCheckCircle style={{ color: 'green' }} />}
+            </div>
+            <div>
+              <label htmlFor="confirmPassword">비밀번호 확인</label>
+              <input
+                placeholder={"Passwrod"}
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                required
+              />
+              {confirmPasswordError && <div style={{ color: 'red' }}>{confirmPasswordError}</div>}
+              {!confirmPasswordError && confirmPassword && <FaCheckCircle style={{ color: 'green' }} />}
+            </div>
+            <div>
+              <label htmlFor="name">이름</label>
+              <input
+                placeholder={"Name"}
+                type="text"
+                id="name"
+                value={name}
+                onChange={handleNameChange}
+                required
+              />
+              {nameError && <div style={{ color: 'red' }}>{nameError}</div>}
+            </div>
+            <div>
+              <label htmlFor="birth">생년월일</label>
+              <input
+                type="date"
+                id="birth"
+                value={birth}
+                onChange={(e) => setBirth(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="phone">전화번호</label>
+              <input
+                placeholder={"Phone"}
+                type="tel"
+                id="phone"
+                value={phone}
+                onChange={handlePhoneChange}
+                required
+              />
+              {phoneError && <div style={{ color: 'red' }}>{phoneError}</div>}
+            </div>
+            <div style={{flexDirection: 'row'}}>
+              <label>성별</label>
+              <div style={{flexDirection: 'row'}}>
+                <input
+                  type="radio"
+                  id="gender-male"
+                  name="gender"
+                  value="male"
+                  checked={gender == 'male'}
+                  onChange={(e) => setGender(e.target.value)}
+                  required
+                />
+                <label htmlFor="gender-male" defaultChecked>남성</label>
+              </div>
+              <div style={{flexDirection: 'row'}}>
+                <input
+                  type="radio"
+                  id="gender-female"
+                  name="gender"
+                  value="female"
+                  checked={gender == 'female'}
+                  onChange={(e) => setGender(e.target.value)}
+                  required
+                />
+                <label htmlFor="gender-female">여성</label>
+              </div>
+              <div style={{flexDirection: 'row'}}>
+                <input
+                  type="radio"
+                  id="gender-other"
+                  name="gender"
+                  value="other"
+                  checked={gender === 'other'}
+                  onChange={(e) => setGender(e.target.value)}
+                  required
+                />
+                <label htmlFor="gender-other">기타</label>
+              </div>
+            </div>
           </div>
-          <div>
-            <input
-              type="radio"
-              id="gender-female"
-              name="gender"
-              value="female"
-              checked={gender == 'female'}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            />
-            <label htmlFor="gender-female">여성</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="gender-other"
-              name="gender"
-              value="other"
-              checked={gender === 'other'}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            />
-            <label htmlFor="gender-other">기타</label>
-          </div>
-        </div>
-        <button type="submit">회원가입</button>
-      </form>
+          <button className='origin__btn' type="submit">회원가입</button>
+        </form>
+      </div>
     </BasicLayout>
   );
 }

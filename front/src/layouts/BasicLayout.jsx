@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import DynamicHeader from "../component/main/DynamicHeader";
 import '../component/main/styles/canvas.scss';
+import Loading from "../pages/Loading";
 
 function BasicLayout({ children }) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const [searchQuery, setSearchQuery] = useState(""); // 검색어 상태 추가
 
   useEffect(() => {
@@ -18,6 +20,14 @@ function BasicLayout({ children }) {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false); // 0.5초 후에 로딩 상태 해제
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // 150개의 원을 생성 (배경임)
@@ -69,21 +79,27 @@ function BasicLayout({ children }) {
         <DynamicHeader />
       </div>
       <div className="info">
-        {children}
-        <div className="canvasBody">
-          <div className="wrapper">
-            <div className="colorizer1"></div>
-            <div className="colorizer2"></div>
-            <div className="colorizer3"></div>
-            <div className="colorizer4"></div>
-            <div className="circles">
-              {circles}
-              {/* 150개의 원이 여기에 추가됨 */}
-            </div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {children}
+          </>
+        )}
+      </div>
+      <canvas ref={canvasRef} id="canvas"></canvas>
+      <div className="canvasBody">
+        <div className="wrapper">
+          <div className="colorizer1"></div>
+          <div className="colorizer2"></div>
+          <div className="colorizer3"></div>
+          <div className="colorizer4"></div>
+          <div className="circles">
+            {circles}
+            {/* 150개의 원이 여기에 추가됨 */}
           </div>
         </div>
       </div>
-      <canvas ref={canvasRef} id="canvas"></canvas>
 
       <footer className="footer">
         <a href="/#">고객센터</a>

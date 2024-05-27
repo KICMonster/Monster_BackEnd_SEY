@@ -40,18 +40,17 @@
   }
   
   .image-box {
-    width: 302px; /* 이미지 박스의 가로 크기를 302px로 설정 */
-    height: 202px; /* 이미지 박스의 세로 크기를 202px로 설정 */
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0; /* 이미지가 없는 경우 배경색 */
+    background-color: #ffffff; /* 이미지가 없는 경우 배경색 */
+    border-radius: 8px;
   }
+
   
-  .cocktail-image {
+  .cocktail-image img {
     max-width: 100%; /* 이미지의 최대 너비를 100%로 설정 */
     max-height: 100%; /* 이미지의 최대 높이를 100%로 설정 */
     object-fit: contain; /* 이미지가 잘리지 않도록 설정 */

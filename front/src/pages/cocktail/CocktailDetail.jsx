@@ -52,40 +52,44 @@ function CocktailDetail() {
       <div style={styles.container}>
         <div style={styles.leftColumn}>
           <div style={styles.imageBox}>
-            <img src={cocktail.recommend} alt={cocktail.name} style={styles.cocktailImage} />
+            <img src={cocktail.imageUrl} alt={cocktail.name} style={styles.cocktailImage} />
           </div>
         </div>
         <div style={styles.rightColumn}>
-          <h1 style={styles.cocktailName}>{cocktail.name}</h1>
-          <p style={styles.cocktailDescription}>{cocktail.description}</p>
-          <h2 style={styles.sectionTitle}>Ingredients:</h2>
-          <ul style={styles.ingredientsList}>
-            <li>Vodka: {cocktail.measure1}</li>
-            <li>Triple sec: {cocktail.measure2}</li>
-            <li>Cranberry juice: {cocktail.measure3}</li>
-          </ul>
-          <h2 style={styles.sectionTitle}>Instructions:</h2>
-          <p style={styles.instructions}>{cocktail.instructions}</p>
-          <h2 style={styles.sectionTitle}>Appetizers:</h2>
-          <div style={styles.appetizersContainer}>
-            {appetizers.map((appetizer, index) => (
-              <div key={index} style={styles.appetizerBox}>
-                <img src={appetizer.description || 'default-image-url.jpg'} alt={appetizer.name} style={styles.appetizerImage} />
-                <div>{appetizer.name}</div>
-              </div>
-            ))}
+          <div style={styles.contentBox}> {/* contentBox 추가 */}
+            <h1 style={styles.cocktailName}>{cocktail.name}</h1>
+            <hr style={styles.divider} />
+            <p style={styles.cocktailDescription}>{cocktail.description}</p>
+            <h2 style={styles.sectionTitle}>Ingredients:</h2>
+            <ul style={styles.ingredientsList}>
+              <li>Vodka: {cocktail.measure1}</li>
+              <li>Triple sec: {cocktail.measure2}</li>
+              <li>Cranberry juice: {cocktail.measure3}</li>
+            </ul>
+            <h2 style={styles.sectionTitle}>Instructions:</h2>
+            <p style={styles.instructions}>{cocktail.instructions}</p>
+            <h2 style={styles.sectionTitle}>Appetizers:</h2>
+            <div style={styles.appetizersContainer}>
+              {appetizers.map((appetizer, index) => (
+                <div key={index} style={styles.appetizerBox}>
+                  <img src={appetizer.description || 'default-image-url.jpg'} alt={appetizer.name} style={styles.appetizerImage} />
+                  <div>{appetizer.name}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </BasicLayout>
   );
 }
+
 const styles = {
   container: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    padding: "20px",
+    padding: "50px",
   },
   leftColumn: {
     flex: "1 1 auto",
@@ -93,10 +97,12 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    position: "sticky", // 이미지를 고정하는 스타일 추가
+    top: "50px", // 이미지의 상단 여백 설정
   },
   rightColumn: {
     flex: "2 1 auto",
-    maxWidth: "600px",
+    maxWidth: "5500px", // 수정된 부분: 이미지와 내용의 간격을 줄이기 위해 줄임
   },
   imageBox: {
     width: "500px", // 이미지 박스의 가로 크기
@@ -107,11 +113,17 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    border: "1px solid #ddd", // 이미지에 border 추가
   },
   cocktailImage: {
     maxWidth: "100%", // 이미지가 이미지 박스에 가득 차도록 설정
     maxHeight: "100%", // 이미지가 이미지 박스에 가득 차도록 설정
     objectFit: "contain", // 이미지가 자동으로 크기를 맞춤
+  },
+  contentBox: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // 투명한 박스 배경색 설정
+    padding: "20px", // 내용을 감싸는 박스 안의 여백 설정
+    borderRadius: "10px", // 박스에 둥근 테두리 설정
   },
   cocktailName: {
     fontSize: "24px",
@@ -130,7 +142,7 @@ const styles = {
   ingredientsList: {
     listStyleType: "none",
     padding: 0,
-    margin: "0 0 30px",
+    margin: "0 0 120px",
   },
   instructions: {
     fontSize: "16px",
@@ -151,6 +163,11 @@ const styles = {
   appetizerImage: {
     width: "100%",
     borderRadius: "8px",
+  },
+  divider: {
+    width: "100%", // 선의 너비를 100%로 설정하여 가로 길이에 맞춤
+    margin: "20px 0", // 선 위아래 여백 추가
+    borderTop: "1px solid #ddd", // 선의 스타일 지정
   },
 };
 

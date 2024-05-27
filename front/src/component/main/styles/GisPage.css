@@ -9,6 +9,9 @@
     background-color: #f0f0f0;
     overflow-y: auto;
     height: 100%;
+    a{
+      text-decoration: none;
+    }
   }
   
   .GisPlaceItem {
@@ -34,4 +37,13 @@
   .GisMapContainer {
     width: 70%;
 
+  }
+
+  .GisPlaceEmpty{
+ display: flex;
+  flex-direction: column; /* 수직 정렬을 위해 column 사용 */
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+  height: 750px; /* 부모 요소의 높이를 100%로 설정하여 화면 전체 높이 차지 */
+  text-align: center; /* 텍스트 중앙 정렬 */
   }

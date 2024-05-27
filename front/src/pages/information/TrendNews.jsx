@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import './TrendNews.css';
@@ -11,8 +11,9 @@ const query = '칵테일 트렌드';
 function TrendNews() {
     const [articles, setArticles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const numPerPage = 10;
+    const numPerPage = 3;
     const totalResults = 100;
+    const sliderInterval = useRef(null); // Slider interval reference
 
     useEffect(() => {
         const cachedNewsData = localStorage.getItem('newsData');
@@ -24,24 +25,14 @@ function TrendNews() {
         } else {
             fetchNews();
         }
-
-        const loadScript = (id, callback) => {
-            const script = document.createElement('script');
-            script.src = "https://ads-partners.coupang.com/g.js";
-            script.async = true;
-            document.getElementById(id).appendChild(script);
-            script.onload = callback;
-        };
-
-        loadScript("ad-left", () => {
-            new PartnersCoupang.G({ "id": 780257, "template": "carousel", "trackingCode": "AF0800913", "width": "140", "height": "680", "tsource": "" });
-        });
-
-        loadScript("ad-right", () => {
-            new PartnersCoupang.G({ "id": 780257, "template": "carousel", "trackingCode": "AF0800913", "width": "140", "height": "680", "tsource": "" });
-        });
-
     }, []);
+
+    useEffect(() => {
+        // Start slider interval when component mounts
+        startSliderInterval();
+        // Cleanup interval when component unmounts
+        return () => clearInterval(sliderInterval.current);
+    }, [currentPage]);
 
     const fetchNews = async () => {
         const totalPages = Math.ceil(totalResults / numPerPage);
@@ -79,28 +70,41 @@ function TrendNews() {
         setCurrentPage(prevPage => prevPage - 1);
     };
 
+    const startSliderInterval = () => {
+        // Clear previous interval
+        clearInterval(sliderInterval.current);
+        // Set new interval
+        sliderInterval.current = setInterval(() => {
+            setCurrentPage(prevPage => (prevPage === Math.ceil(totalResults / numPerPage)) ? 1 : prevPage + 1);
+        }, 5000); // Interval time: 5 seconds
+    };
+
+    const stopSliderInterval = () => {
+        clearInterval(sliderInterval.current);
+    };
+
     return (
         <BasicLayout>
             <div className="main-container">
-                <div id="ad-left" className="ad-sidebar"></div>
                 <div className="content">
-                    <h1>Cocktail News</h1>
-                    {articles.slice((currentPage - 1) * numPerPage, currentPage * numPerPage).map((article, index) => (
-                        <div className="article-container" key={index}>
-                            {article.image && <img src={article.image} alt={article.title} />}
-                            <div className="article-content">
-                                <h2>{article.title}</h2>
-                                <p>{article.snippet}</p>
-                                <a href={article.link} target="_blank" rel="noopener noreferrer">Read more</a>
-                            </div>
+                    <div className='linkmain' onMouseEnter={stopSliderInterval} onMouseLeave={startSliderInterval}>
+                        <button style={{ marginRight: '30px' }} onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>
+                        <div>
+                            <h1>Cocktail News</h1>
+                            {articles.slice((currentPage - 1) * numPerPage, currentPage * numPerPage).map((article, index) => (
+                                <div className="article-container" key={index}>
+                                    {article.image && <img src={article.image} alt={article.title} />}
+                                    <div className="article-content">
+                                        <h2>{article.title}</h2>
+                                        <p>{article.snippet}</p>
+                                        <a href={article.link} target="_blank" rel="noopener noreferrer">Read more</a>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                    <div>
-                        <button onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>
-                        <button onClick={handleNextPage} disabled={currentPage === Math.ceil(totalResults / numPerPage)}>Next</button>
+                        <button style={{ marginLeft: '30px' }} onClick={handleNextPage} disabled={currentPage === Math.ceil(totalResults / numPerPage)}>Next</button>
                     </div>
                 </div>
-                <div id="ad-right" className="ad-sidebar"></div>
             </div>
         </BasicLayout>
     );

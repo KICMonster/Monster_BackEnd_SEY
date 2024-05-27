@@ -81,7 +81,13 @@ function Grid() {
       </div>
 
       <div className="footer-ad">
-        {/* <div class="image image--contain" style="background-image: url(&quot;https://sin.creativecdn.com/images?id=02eaa98033e31bd7e84dafb281f2633ccf07479c&amp;w=119&amp;h=115&amp;o=1005005519378877&amp;fid=2zTjYdIa0F6j6ke8d6fF&amp;f=3&quot;);"></div> */}
+        <div className="ad-banner">
+          <iframe
+            src="https://example-ad-network.com/ad-banner?client=your-client-id&slot=your-ad-slot-id"
+            style={{ width: '100%', height: '100px', border: 'none' }}
+            title="Ad Banner"
+          ></iframe>
+        </div>
       </div>
     </div>
   );
