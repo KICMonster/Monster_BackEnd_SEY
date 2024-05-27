@@ -53,7 +53,8 @@ dependencies {
     implementation 'com.sun.mail:smtp:2.0.1'
    	implementation 'com.google.cloud:google-cloud-translate:2.43.0'
 //   	implementation 'org.json:json:20210307'
-implementation 'org.json:json:20200518'
+	implementation 'org.json:json:20200518'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
 
 

@@ -15,7 +15,7 @@ public class SearchService {
     private CocktailRepository cocktailsRepository;
 
     public List<Cocktail> findCocktailsByWeatherCode(String weatherCode) {
-        return cocktailsRepository.findByrcWeather(weatherCode);
+        return cocktailsRepository.findByRcWeather(weatherCode);
     }
     public List<CocktailDTO> getAllCocktails() {
         List<Cocktail> cocktails = cocktailsRepository.findAll();

@@ -12,7 +12,7 @@ public class Weather {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "Weather_seq_GENERATOR")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private String weatherCd;
-    private Long weatherCd;
+    private String weatherCd;
     private String weatherNm;
     private String weatherSt;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
     List<Cocktail> findByRecommendIn(List<String> tasteIds);
-    List<Cocktail> findByrcWeather(String weatherCode);
+    List<Cocktail> findByRcWeather(String weatherCode);
     @EntityGraph(attributePaths = {"views"})
     List<Cocktail> findAll();
 }
