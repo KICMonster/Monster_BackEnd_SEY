@@ -47,12 +47,18 @@ public class SecurityConfig {
         }).sessionManagement((session) -> {
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         }).authorizeHttpRequests((auth) -> {
-            ((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)auth.requestMatchers(HttpMethod.OPTIONS, new String[]{"/api/authenticate", "/join/emails/verification-requests", "/join/emails/verifications", "/join/submit", "/weather/api/today", "/search/api/chart"})).permitAll().requestMatchers(HttpMethod.POST, new String[]{"/search/api/chart"})).permitAll().requestMatchers(HttpMethod.PUT, new String[]{"/view/api/cocktails/{id}"})).permitAll().requestMatchers(HttpMethod.GET, new String[]{"/weather/api/today", "/search/api/cocktails", "/search/api/chart"})).permitAll().requestMatchers(HttpMethod.DELETE, new String[]{"/join/withdraw"})).permitAll().requestMatchers(new String[]{"/api/authenticate", "/join/emails/verification-requests", "/join/emails/verifications", "/join/submit"})).permitAll().requestMatchers(HttpMethod.OPTIONS, new String[]{"/search/submitTaste", "/search/updateTasteAndRecommend"})).hasAuthority("USER").anyRequest()).authenticated();
+            ((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)auth
+                    .requestMatchers(HttpMethod.OPTIONS, new String[]{"/api/authenticate", "/join/emails/verification-requests", "/join/emails/verifications", "/join/submit", "/weather/api/today", "/search/api/chart"})).permitAll()
+                    .requestMatchers(HttpMethod.POST, new String[]{"/search/api/chart"})).permitAll()
+                    .requestMatchers(HttpMethod.PUT, new String[]{"/view/api/cocktails/{id}"})).permitAll()
+                    .requestMatchers(HttpMethod.GET, new String[]{"/weather/api/today", "/search/api/cocktails", "/search/api/chart"})).permitAll()
+                    .requestMatchers(HttpMethod.DELETE, new String[]{"/join/withdraw"})).permitAll()
+                    .requestMatchers(new String[]{"/api/authenticate", "/join/emails/verification-requests", "/join/emails/verifications", "/join/submit"})).permitAll().requestMatchers(HttpMethod.OPTIONS, new String[]{"/search/submitTaste", "/search/updateTasteAndRecommend"})).hasAuthority("USER").anyRequest()).authenticated();
         }).oauth2Login((oauth2Login) -> {
-            ((OAuth2LoginConfigurer)((OAuth2LoginConfigurer)oauth2Login.defaultSuccessUrl("/oauth2/success", true)).failureUrl("/login?error=true")).permitAll();
+            ((OAuth2LoginConfigurer)oauth2Login.defaultSuccessUrl("/oauth2/success", true)).failureUrl("/login?error=true").permitAll();
         }).formLogin((formLogin) -> {
-            ((FormLoginConfigurer)((FormLoginConfigurer)formLogin.loginPage("/login").permitAll()).defaultSuccessUrl("/home", true)).failureUrl("/login?error=true");
+            ((FormLoginConfigurer)formLogin.loginPage("/login").permitAll()).defaultSuccessUrl("/home", true).failureUrl("/login?error=true");
         });
-        return (SecurityFilterChain)http.build();
+        return http.build();
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 public interface CocktailsRepository extends JpaRepository<Cocktail, Long> {
     List<Cocktail> findByTasteIn(List<String> tasteIds);
 
-    List<Cocktail> findByWeather(String weatherCode);
+    List<Cocktail> findByWeatherIn(List<String> weatherCode);
 
     @EntityGraph(
             attributePaths = {"views"}

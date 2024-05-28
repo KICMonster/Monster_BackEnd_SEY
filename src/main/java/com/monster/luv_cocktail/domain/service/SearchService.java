@@ -3,6 +3,8 @@ package com.monster.luv_cocktail.domain.service;
 import com.monster.luv_cocktail.domain.dto.CocktailDTO;
 import com.monster.luv_cocktail.domain.entity.Cocktail;
 import com.monster.luv_cocktail.domain.repository.CocktailsRepository;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,12 @@ public class SearchService {
     }
 
     public List<Cocktail> findCocktailsByWeatherCode(String weatherCode) {
-        return this.cocktailsRepository.findByWeather(weatherCode);
+        return this.cocktailsRepository.findByWeatherIn(Collections.singletonList(weatherCode));
     }
 
     public List<CocktailDTO> getAllCocktails() {
         List<Cocktail> cocktail = this.cocktailsRepository.findAll();
-        return (List)cocktail.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return cocktail.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     private CocktailDTO convertToDTO(Cocktail cocktail) {

@@ -68,11 +68,14 @@ public class SearchController {
             System.out.println("taste " + taste);
             System.out.println("jwtToken: " + jwtToken);
             String email = this.jwtService.extractEmailFromToken(jwtToken);
-            Member member = (Member)this.memberRepository.findByEmail(email).orElseThrow(() -> {
+            Member member = this.memberRepository.findByEmail(email).orElseThrow(() -> {
                 return new IllegalArgumentException("Member not found for email: " + email);
             });
-            member.setTaste(tasteString.toString());
+            // 회원의 맛 설정 업데이트
+            member.setTaste(tasteString.getTasteString());
+            System.out.println("member: " + member);
             this.memberRepository.save(member);
+
             List<String> tasteIds = Arrays.asList(tasteString.getTasteString().split("\\."));
             List<Cocktail> recommendedCocktails = this.memberService.findCocktailsByTaste(tasteIds);
             System.out.println("추천 칵테일: " + recommendedCocktails);
@@ -94,21 +97,21 @@ public class SearchController {
         System.out.println("end: " + end);
         Specification<ViewLog> spec = ViewService.inTimeRange(start, end);
         List<ViewLog> views = this.viewRepository.findAll(spec);
-        Map<Integer, List<ViewLog>> viewsByHour = (Map)views.stream().collect(Collectors.groupingBy((view) -> {
+        Map<Integer, List<ViewLog>> viewsByHour = views.stream().collect(Collectors.groupingBy((view) -> {
             return view.getViewDate().getHour();
         }));
-        List<TimeSlotDTO> timeSlotDTOs = (List)viewsByHour.entrySet().stream().map((entry) -> {
-            int hour = (Integer)entry.getKey();
-            List<ViewLog> hourViews = (List)entry.getValue();
-            List<ViewDTO> viewDTOs = (List)hourViews.stream().map((view) -> {
+        List<TimeSlotDTO> timeSlotDTOs = viewsByHour.entrySet().stream().map((entry) -> {
+            int hour = entry.getKey();
+            List<ViewLog> hourViews = entry.getValue();
+            List<ViewDTO> viewDTOs = hourViews.stream().map((view) -> {
                 ViewDTO dto = new ViewDTO();
-                dto.setViewCd(view.getViewCd());
+                dto.setViewCd(view.getViewId());
                 dto.setViewDate(view.getViewDate());
                 dto.setName(view.getCocktail().getName());
                 dto.setId(view.getCocktail().getId());
                 return dto;
             }).collect(Collectors.toList());
-            return new TimeSlotDTO(hour, (long)hourViews.size(), viewDTOs);
+            return new TimeSlotDTO(hour,hourViews.size(), viewDTOs);
         }).collect(Collectors.toList());
         System.out.println("조회된 조회수: " + views.size());
         return ResponseEntity.ok(timeSlotDTOs);

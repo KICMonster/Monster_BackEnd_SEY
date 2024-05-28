@@ -134,8 +134,7 @@ public class MemberService {
     }
 
     public List<Cocktail> findCocktailsByTaste(List<String> tasteIds) {
-        List<Cocktail> recommendedCocktails = this.cocktailsRepository.findByTasteIn(tasteIds);
-        return recommendedCocktails;
+        return cocktailsRepository.findByTasteIn(tasteIds);
     }
 
     public MemberService(final MemberRepository memberRepository, final SendEmailService mailService, final JwtService jwtService, final InMemoryAuthCodeStore inMemoryAuthCodeStore, final PasswordEncoder passwordEncoder, final CocktailsRepository cocktailsRepository) {
